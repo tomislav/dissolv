@@ -9,15 +9,25 @@
 /* Begin PBXBuildFile section */
 		791284862886903D00C74E78 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791284852886903D00C74E78 /* AppDelegate.swift */; };
 		791284882886903E00C74E78 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 791284872886903E00C74E78 /* Assets.xcassets */; };
-		7912848B2886903E00C74E78 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 791284892886903E00C74E78 /* MainMenu.xib */; };
+		791284972886A0FF00C74E78 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791284962886A0FF00C74E78 /* main.swift */; };
+		7912849A2886C94600C74E78 /* Preferences in Frameworks */ = {isa = PBXBuildFile; productRef = 791284992886C94600C74E78 /* Preferences */; };
+		791284CD2886D1AA00C74E78 /* AdvancedSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 791284C92886D1AA00C74E78 /* AdvancedSettingsViewController.xib */; };
+		791284CE2886D1AA00C74E78 /* GeneralSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791284CA2886D1AA00C74E78 /* GeneralSettingsViewController.swift */; };
+		791284CF2886D1AA00C74E78 /* AdvancedPreferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791284CB2886D1AA00C74E78 /* AdvancedPreferenceViewController.swift */; };
+		791284D02886D1AA00C74E78 /* GeneralSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 791284CC2886D1AA00C74E78 /* GeneralSettingsViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		791284822886903D00C74E78 /* Dissolv.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dissolv.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		791284852886903D00C74E78 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		791284872886903E00C74E78 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		7912848A2886903E00C74E78 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		7912848C2886903E00C74E78 /* Dissolv.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Dissolv.entitlements; sourceTree = "<group>"; };
+		79128492288690AA00C74E78 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		791284962886A0FF00C74E78 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		791284C92886D1AA00C74E78 /* AdvancedSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AdvancedSettingsViewController.xib; sourceTree = "<group>"; };
+		791284CA2886D1AA00C74E78 /* GeneralSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneralSettingsViewController.swift; sourceTree = "<group>"; };
+		791284CB2886D1AA00C74E78 /* AdvancedPreferenceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdvancedPreferenceViewController.swift; sourceTree = "<group>"; };
+		791284CC2886D1AA00C74E78 /* GeneralSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GeneralSettingsViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -25,6 +35,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7912849A2886C94600C74E78 /* Preferences in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -50,10 +61,15 @@
 		791284842886903D00C74E78 /* Dissolv */ = {
 			isa = PBXGroup;
 			children = (
+				79128492288690AA00C74E78 /* Info.plist */,
 				791284852886903D00C74E78 /* AppDelegate.swift */,
 				791284872886903E00C74E78 /* Assets.xcassets */,
-				791284892886903E00C74E78 /* MainMenu.xib */,
 				7912848C2886903E00C74E78 /* Dissolv.entitlements */,
+				791284962886A0FF00C74E78 /* main.swift */,
+				791284CB2886D1AA00C74E78 /* AdvancedPreferenceViewController.swift */,
+				791284C92886D1AA00C74E78 /* AdvancedSettingsViewController.xib */,
+				791284CA2886D1AA00C74E78 /* GeneralSettingsViewController.swift */,
+				791284CC2886D1AA00C74E78 /* GeneralSettingsViewController.xib */,
 			);
 			path = Dissolv;
 			sourceTree = "<group>";
@@ -74,6 +90,9 @@
 			dependencies = (
 			);
 			name = Dissolv;
+			packageProductDependencies = (
+				791284992886C94600C74E78 /* Preferences */,
+			);
 			productName = Dissolv;
 			productReference = 791284822886903D00C74E78 /* Dissolv.app */;
 			productType = "com.apple.product-type.application";
@@ -102,6 +121,9 @@
 				Base,
 			);
 			mainGroup = 791284792886903C00C74E78;
+			packageReferences = (
+				791284982886C94600C74E78 /* XCRemoteSwiftPackageReference "Preferences" */,
+			);
 			productRefGroup = 791284832886903D00C74E78 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -116,8 +138,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				791284D02886D1AA00C74E78 /* GeneralSettingsViewController.xib in Resources */,
 				791284882886903E00C74E78 /* Assets.xcassets in Resources */,
-				7912848B2886903E00C74E78 /* MainMenu.xib in Resources */,
+				791284CD2886D1AA00C74E78 /* AdvancedSettingsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -128,22 +151,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				791284972886A0FF00C74E78 /* main.swift in Sources */,
+				791284CF2886D1AA00C74E78 /* AdvancedPreferenceViewController.swift in Sources */,
+				791284CE2886D1AA00C74E78 /* GeneralSettingsViewController.swift in Sources */,
 				791284862886903D00C74E78 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		791284892886903E00C74E78 /* MainMenu.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				7912848A2886903E00C74E78 /* Base */,
-			);
-			name = MainMenu.xib;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		7912848D2886903E00C74E78 /* Debug */ = {
@@ -271,8 +286,8 @@
 				DEVELOPMENT_TEAM = LAJ7DL97K7;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Dissolv/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_NSMainNibFile = MainMenu;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -298,8 +313,8 @@
 				DEVELOPMENT_TEAM = LAJ7DL97K7;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Dissolv/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_NSMainNibFile = MainMenu;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -335,6 +350,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		791284982886C94600C74E78 /* XCRemoteSwiftPackageReference "Preferences" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/Preferences";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.6.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		791284992886C94600C74E78 /* Preferences */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 791284982886C94600C74E78 /* XCRemoteSwiftPackageReference "Preferences" */;
+			productName = Preferences;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7912847A2886903C00C74E78 /* Project object */;
 }
