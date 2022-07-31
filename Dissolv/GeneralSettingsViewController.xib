@@ -9,6 +9,7 @@
             <connections>
                 <outlet property="hideAfterLabel" destination="fui-iI-5Nm" id="d2f-n6-6Qt"/>
                 <outlet property="hideAfterSlider" destination="UnM-Vj-a2y" id="JcN-z8-ozg"/>
+                <outlet property="launchAtLoginButton" destination="eIh-jy-wRw" id="ikV-7Z-4Y8"/>
                 <outlet property="view" destination="c22-O7-iKe" id="ZQe-UH-LCX"/>
             </connections>
         </customObject>
@@ -51,10 +52,13 @@
                         <gridCell row="ukr-az-gqc" column="cs9-fm-l2F" id="jPa-TM-cRP">
                             <button key="contentView" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eIh-jy-wRw">
                                 <rect key="frame" x="149" y="101" width="119" height="18"/>
-                                <buttonCell key="cell" type="check" title="Launch at login" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="dB2-6s-xY8">
+                                <buttonCell key="cell" type="check" title="Launch at login" bezelStyle="regularSquare" imagePosition="left" inset="2" id="dB2-6s-xY8">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="launchAtLoginPressed:" target="-2" id="eFC-6L-y5e"/>
+                                </connections>
                             </button>
                         </gridCell>
                         <gridCell row="Vxw-AW-fH6" column="GGj-JC-w4E" headOfMergedCell="YUZ-t2-HaZ" xPlacement="fill" id="YUZ-t2-HaZ">

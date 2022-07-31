@@ -17,6 +17,7 @@
 		791284D02886D1AA00C74E78 /* GeneralSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 791284CC2886D1AA00C74E78 /* GeneralSettingsViewController.xib */; };
 		7914A9802896B5CF00414FCA /* Defaults in Frameworks */ = {isa = PBXBuildFile; productRef = 7914A97F2896B5CF00414FCA /* Defaults */; };
 		7914A9822896B79600414FCA /* DefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7914A9812896B79600414FCA /* DefaultsKeys.swift */; };
+		7914A9852896D82000414FCA /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 7914A9842896D82000414FCA /* LaunchAtLogin */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7914A9852896D82000414FCA /* LaunchAtLogin in Frameworks */,
 				7914A9802896B5CF00414FCA /* Defaults in Frameworks */,
 				7912849A2886C94600C74E78 /* Preferences in Frameworks */,
 			);
@@ -89,6 +91,7 @@
 				7912847E2886903D00C74E78 /* Sources */,
 				7912847F2886903D00C74E78 /* Frameworks */,
 				791284802886903D00C74E78 /* Resources */,
+				7914A9862896D83800414FCA /* Copy “Launch at Login Helper” */,
 			);
 			buildRules = (
 			);
@@ -98,6 +101,7 @@
 			packageProductDependencies = (
 				791284992886C94600C74E78 /* Preferences */,
 				7914A97F2896B5CF00414FCA /* Defaults */,
+				7914A9842896D82000414FCA /* LaunchAtLogin */,
 			);
 			productName = Dissolv;
 			productReference = 791284822886903D00C74E78 /* Dissolv.app */;
@@ -130,6 +134,7 @@
 			packageReferences = (
 				791284982886C94600C74E78 /* XCRemoteSwiftPackageReference "Preferences" */,
 				7914A97E2896B5CF00414FCA /* XCRemoteSwiftPackageReference "Defaults" */,
+				7914A9832896D82000414FCA /* XCRemoteSwiftPackageReference "LaunchAtLogin" */,
 			);
 			productRefGroup = 791284832886903D00C74E78 /* Products */;
 			projectDirPath = "";
@@ -152,6 +157,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		7914A9862896D83800414FCA /* Copy “Launch at Login Helper” */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Copy “Launch at Login Helper”";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${BUILT_PRODUCTS_DIR}/LaunchAtLogin_LaunchAtLogin.bundle/Contents/Resources/copy-helper-swiftpm.sh\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		7912847E2886903D00C74E78 /* Sources */ = {
@@ -376,6 +402,14 @@
 				minimumVersion = 6.3.0;
 			};
 		};
+		7914A9832896D82000414FCA /* XCRemoteSwiftPackageReference "LaunchAtLogin" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/LaunchAtLogin";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.2.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -388,6 +422,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 7914A97E2896B5CF00414FCA /* XCRemoteSwiftPackageReference "Defaults" */;
 			productName = Defaults;
+		};
+		7914A9842896D82000414FCA /* LaunchAtLogin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7914A9832896D82000414FCA /* XCRemoteSwiftPackageReference "LaunchAtLogin" */;
+			productName = LaunchAtLogin;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

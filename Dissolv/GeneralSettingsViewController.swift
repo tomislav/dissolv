@@ -2,10 +2,12 @@ import Cocoa
 import Preferences
 import OSLog
 import Defaults
+import LaunchAtLogin
 
 final class GeneralSettingsViewController: NSViewController, SettingsPane {
     @IBOutlet weak var hideAfterLabel: NSTextField!
     @IBOutlet weak var hideAfterSlider: NSSlider!
+    @IBOutlet weak var launchAtLoginButton: NSButton!
     
     private let logger = Logger(
         subsystem: Bundle.main.bundleIdentifier!,
@@ -22,6 +24,10 @@ final class GeneralSettingsViewController: NSViewController, SettingsPane {
 		super.viewDidLoad()
 
         hideAfterSlider.isContinuous = true
+        
+        if LaunchAtLogin.isEnabled {
+            launchAtLoginButton.state = .on
+        }
         
         switch Defaults[.hideAfter] {
         case 0:
@@ -196,4 +202,15 @@ final class GeneralSettingsViewController: NSViewController, SettingsPane {
             Defaults[.hideAfter] = 0
         }
     }
+    
+    @IBAction func launchAtLoginPressed(_ sender: Any) {
+        logger.debug("Launch at login pressed")
+        
+        if launchAtLoginButton.state == .on {
+            LaunchAtLogin.isEnabled = true
+        } else {
+            LaunchAtLogin.isEnabled = false
+        }
+    }
+    
 }
