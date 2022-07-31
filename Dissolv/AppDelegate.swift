@@ -8,6 +8,7 @@
 import Cocoa
 import OSLog
 import Preferences
+import Defaults
 
 extension Settings.PaneIdentifier {
     static let general = Self("general")
@@ -58,10 +59,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 watchedApplications.append(watchedApplication)
                 
                 if !currentApp.isHidden {
-                    let timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(timerFire), userInfo: ["app": currentApp], repeats: false)
-                    watchedApplication.timer?.invalidate()
-                    watchedApplication.timer = timer
-                    logger.debug("\(currentApp.localizedName ?? "", privacy: .public) scheduled timer")
+                    scheduleTimer(for: currentApp, watched: watchedApplication)
                 }
                 
                 currentApp.addObserver(self, forKeyPath: "isActive", options: .new, context: nil)
@@ -71,6 +69,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         
         ws.addObserver(self, forKeyPath: "runningApplications", options: .new, context: nil)
+        
+        let _ = Defaults.observe(.hideAfter, options: []) { change in
+            for app in self.watchedApplications {
+                if !app.app.isHidden {
+                    self.scheduleTimer(for: app.app, watched: app)
+                }
+            }
+        }.tieToLifetime(of: self)
+    }
+    
+    func scheduleTimer(for app: NSRunningApplication, watched: WatchedApplication) {
+        let timer = Timer.scheduledTimer(timeInterval: Defaults[.hideAfter], target: self, selector: #selector(timerFire), userInfo: ["app": app], repeats: false)
+        watched.timer?.invalidate()
+        watched.timer = timer
+        logger.debug("\(app.localizedName ?? "", privacy: .public) scheduled timer")
     }
     
     func setupMenus() {
@@ -123,10 +136,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                         watchedApplications.append(watchedApplication)
                         
                         if !runningApp.isHidden {
-                            let timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(timerFire), userInfo: ["app": runningApp], repeats: false)
-                            watchedApplication.timer?.invalidate()
-                            watchedApplication.timer = timer
-                            logger.debug("\(runningApp.localizedName ?? "", privacy: .public) scheduled timer")
+                            scheduleTimer(for: runningApp, watched: watchedApplication)
                         }
                         
                         runningApp.addObserver(self, forKeyPath: "isActive", options: .new, context: nil)
@@ -150,7 +160,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             } else {
                 logger.debug("\(app.localizedName ?? "", privacy: .public) is not active")
                 if !app.isHidden {
-                    let timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(timerFire), userInfo: ["app": app], repeats: false)
+                    let timer = Timer.scheduledTimer(timeInterval: Defaults[.hideAfter], target: self, selector: #selector(timerFire), userInfo: ["app": app], repeats: false)
                     if let index = watchedApplications.firstIndex(where: {$0.app == app}) {
                         watchedApplications[index].timer?.invalidate()
                         watchedApplications[index].timer = timer

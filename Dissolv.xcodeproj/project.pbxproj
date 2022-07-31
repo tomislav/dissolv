@@ -15,6 +15,8 @@
 		791284CE2886D1AA00C74E78 /* GeneralSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791284CA2886D1AA00C74E78 /* GeneralSettingsViewController.swift */; };
 		791284CF2886D1AA00C74E78 /* AdvancedPreferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791284CB2886D1AA00C74E78 /* AdvancedPreferenceViewController.swift */; };
 		791284D02886D1AA00C74E78 /* GeneralSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 791284CC2886D1AA00C74E78 /* GeneralSettingsViewController.xib */; };
+		7914A9802896B5CF00414FCA /* Defaults in Frameworks */ = {isa = PBXBuildFile; productRef = 7914A97F2896B5CF00414FCA /* Defaults */; };
+		7914A9822896B79600414FCA /* DefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7914A9812896B79600414FCA /* DefaultsKeys.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,7 @@
 		791284CA2886D1AA00C74E78 /* GeneralSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneralSettingsViewController.swift; sourceTree = "<group>"; };
 		791284CB2886D1AA00C74E78 /* AdvancedPreferenceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdvancedPreferenceViewController.swift; sourceTree = "<group>"; };
 		791284CC2886D1AA00C74E78 /* GeneralSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GeneralSettingsViewController.xib; sourceTree = "<group>"; };
+		7914A9812896B79600414FCA /* DefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsKeys.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +38,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7914A9802896B5CF00414FCA /* Defaults in Frameworks */,
 				7912849A2886C94600C74E78 /* Preferences in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -65,6 +69,7 @@
 				791284852886903D00C74E78 /* AppDelegate.swift */,
 				791284872886903E00C74E78 /* Assets.xcassets */,
 				7912848C2886903E00C74E78 /* Dissolv.entitlements */,
+				7914A9812896B79600414FCA /* DefaultsKeys.swift */,
 				791284962886A0FF00C74E78 /* main.swift */,
 				791284CB2886D1AA00C74E78 /* AdvancedPreferenceViewController.swift */,
 				791284C92886D1AA00C74E78 /* AdvancedSettingsViewController.xib */,
@@ -92,6 +97,7 @@
 			name = Dissolv;
 			packageProductDependencies = (
 				791284992886C94600C74E78 /* Preferences */,
+				7914A97F2896B5CF00414FCA /* Defaults */,
 			);
 			productName = Dissolv;
 			productReference = 791284822886903D00C74E78 /* Dissolv.app */;
@@ -123,6 +129,7 @@
 			mainGroup = 791284792886903C00C74E78;
 			packageReferences = (
 				791284982886C94600C74E78 /* XCRemoteSwiftPackageReference "Preferences" */,
+				7914A97E2896B5CF00414FCA /* XCRemoteSwiftPackageReference "Defaults" */,
 			);
 			productRefGroup = 791284832886903D00C74E78 /* Products */;
 			projectDirPath = "";
@@ -151,6 +158,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7914A9822896B79600414FCA /* DefaultsKeys.swift in Sources */,
 				791284972886A0FF00C74E78 /* main.swift in Sources */,
 				791284CF2886D1AA00C74E78 /* AdvancedPreferenceViewController.swift in Sources */,
 				791284CE2886D1AA00C74E78 /* GeneralSettingsViewController.swift in Sources */,
@@ -360,6 +368,14 @@
 				minimumVersion = 2.6.0;
 			};
 		};
+		7914A97E2896B5CF00414FCA /* XCRemoteSwiftPackageReference "Defaults" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/Defaults";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.3.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -367,6 +383,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 791284982886C94600C74E78 /* XCRemoteSwiftPackageReference "Preferences" */;
 			productName = Preferences;
+		};
+		7914A97F2896B5CF00414FCA /* Defaults */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7914A97E2896B5CF00414FCA /* XCRemoteSwiftPackageReference "Defaults" */;
+			productName = Defaults;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
