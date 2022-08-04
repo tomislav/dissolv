@@ -13,11 +13,17 @@
 		7912849A2886C94600C74E78 /* Preferences in Frameworks */ = {isa = PBXBuildFile; productRef = 791284992886C94600C74E78 /* Preferences */; };
 		791284CD2886D1AA00C74E78 /* AdvancedSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 791284C92886D1AA00C74E78 /* AdvancedSettingsViewController.xib */; };
 		791284CE2886D1AA00C74E78 /* GeneralSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791284CA2886D1AA00C74E78 /* GeneralSettingsViewController.swift */; };
-		791284CF2886D1AA00C74E78 /* AdvancedPreferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791284CB2886D1AA00C74E78 /* AdvancedPreferenceViewController.swift */; };
+		791284CF2886D1AA00C74E78 /* AdvancedSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791284CB2886D1AA00C74E78 /* AdvancedSettingsViewController.swift */; };
 		791284D02886D1AA00C74E78 /* GeneralSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 791284CC2886D1AA00C74E78 /* GeneralSettingsViewController.xib */; };
 		7914A9802896B5CF00414FCA /* Defaults in Frameworks */ = {isa = PBXBuildFile; productRef = 7914A97F2896B5CF00414FCA /* Defaults */; };
 		7914A9822896B79600414FCA /* DefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7914A9812896B79600414FCA /* DefaultsKeys.swift */; };
 		7914A9852896D82000414FCA /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 7914A9842896D82000414FCA /* LaunchAtLogin */; };
+		7914A9892898330B00414FCA /* AddApplicationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7914A9872898330B00414FCA /* AddApplicationViewController.swift */; };
+		7914A98A2898330B00414FCA /* AddApplicationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7914A9882898330B00414FCA /* AddApplicationViewController.xib */; };
+		7914A98D28994C8500414FCA /* AppCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7914A98B28994C8500414FCA /* AppCollectionViewItem.swift */; };
+		7914A98E28994C8500414FCA /* AppCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7914A98C28994C8500414FCA /* AppCollectionViewItem.xib */; };
+		7914A9902899757B00414FCA /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7914A98F2899757B00414FCA /* Types.swift */; };
+		7914A99228997DCA00414FCA /* Defaults+Workaround.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7914A99128997DCA00414FCA /* Defaults+Workaround.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,9 +35,15 @@
 		791284962886A0FF00C74E78 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		791284C92886D1AA00C74E78 /* AdvancedSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AdvancedSettingsViewController.xib; sourceTree = "<group>"; };
 		791284CA2886D1AA00C74E78 /* GeneralSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneralSettingsViewController.swift; sourceTree = "<group>"; };
-		791284CB2886D1AA00C74E78 /* AdvancedPreferenceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdvancedPreferenceViewController.swift; sourceTree = "<group>"; };
+		791284CB2886D1AA00C74E78 /* AdvancedSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdvancedSettingsViewController.swift; sourceTree = "<group>"; };
 		791284CC2886D1AA00C74E78 /* GeneralSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GeneralSettingsViewController.xib; sourceTree = "<group>"; };
 		7914A9812896B79600414FCA /* DefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsKeys.swift; sourceTree = "<group>"; };
+		7914A9872898330B00414FCA /* AddApplicationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddApplicationViewController.swift; sourceTree = "<group>"; };
+		7914A9882898330B00414FCA /* AddApplicationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddApplicationViewController.xib; sourceTree = "<group>"; };
+		7914A98B28994C8500414FCA /* AppCollectionViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCollectionViewItem.swift; sourceTree = "<group>"; };
+		7914A98C28994C8500414FCA /* AppCollectionViewItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AppCollectionViewItem.xib; sourceTree = "<group>"; };
+		7914A98F2899757B00414FCA /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
+		7914A99128997DCA00414FCA /* Defaults+Workaround.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Defaults+Workaround.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,11 +84,17 @@
 				791284872886903E00C74E78 /* Assets.xcassets */,
 				7912848C2886903E00C74E78 /* Dissolv.entitlements */,
 				7914A9812896B79600414FCA /* DefaultsKeys.swift */,
+				7914A99128997DCA00414FCA /* Defaults+Workaround.swift */,
+				7914A98F2899757B00414FCA /* Types.swift */,
 				791284962886A0FF00C74E78 /* main.swift */,
-				791284CB2886D1AA00C74E78 /* AdvancedPreferenceViewController.swift */,
+				791284CB2886D1AA00C74E78 /* AdvancedSettingsViewController.swift */,
 				791284C92886D1AA00C74E78 /* AdvancedSettingsViewController.xib */,
 				791284CA2886D1AA00C74E78 /* GeneralSettingsViewController.swift */,
 				791284CC2886D1AA00C74E78 /* GeneralSettingsViewController.xib */,
+				7914A9872898330B00414FCA /* AddApplicationViewController.swift */,
+				7914A9882898330B00414FCA /* AddApplicationViewController.xib */,
+				7914A98B28994C8500414FCA /* AppCollectionViewItem.swift */,
+				7914A98C28994C8500414FCA /* AppCollectionViewItem.xib */,
 			);
 			path = Dissolv;
 			sourceTree = "<group>";
@@ -150,8 +168,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7914A98E28994C8500414FCA /* AppCollectionViewItem.xib in Resources */,
 				791284D02886D1AA00C74E78 /* GeneralSettingsViewController.xib in Resources */,
 				791284882886903E00C74E78 /* Assets.xcassets in Resources */,
+				7914A98A2898330B00414FCA /* AddApplicationViewController.xib in Resources */,
 				791284CD2886D1AA00C74E78 /* AdvancedSettingsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -186,7 +206,11 @@
 			files = (
 				7914A9822896B79600414FCA /* DefaultsKeys.swift in Sources */,
 				791284972886A0FF00C74E78 /* main.swift in Sources */,
-				791284CF2886D1AA00C74E78 /* AdvancedPreferenceViewController.swift in Sources */,
+				791284CF2886D1AA00C74E78 /* AdvancedSettingsViewController.swift in Sources */,
+				7914A9902899757B00414FCA /* Types.swift in Sources */,
+				7914A99228997DCA00414FCA /* Defaults+Workaround.swift in Sources */,
+				7914A98D28994C8500414FCA /* AppCollectionViewItem.swift in Sources */,
+				7914A9892898330B00414FCA /* AddApplicationViewController.swift in Sources */,
 				791284CE2886D1AA00C74E78 /* GeneralSettingsViewController.swift in Sources */,
 				791284862886903D00C74E78 /* AppDelegate.swift in Sources */,
 			);
