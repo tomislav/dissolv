@@ -13,6 +13,8 @@ final class AdvancedSettingsViewController: NSViewController, SettingsPane, AddA
     @IBOutlet weak var actionPopupButton: NSPopUpButton!
     @IBOutlet weak var hideAfterLabel: NSTextField!
     @IBOutlet weak var hideAfterSlider: NSSlider!
+    @IBOutlet weak var ctaBox: NSBox!
+    @IBOutlet weak var mainBox: NSBox!
     
     override var nibName: NSNib.Name? { "AdvancedSettingsViewController" }
     
@@ -40,7 +42,8 @@ final class AdvancedSettingsViewController: NSViewController, SettingsPane, AddA
                 updateSettingsPanel(with: customAppSetting)
             }
         } else {
-            // TODO: Show CTA
+            ctaBox.isHidden = false
+            mainBox.isHidden = true
         }
 	}
     
@@ -58,19 +61,37 @@ final class AdvancedSettingsViewController: NSViewController, SettingsPane, AddA
                 collectionView.deleteItems(at: indexPaths)
                 
                 if Defaults[.customAppSettings].count > 0 {
+                    ctaBox.isHidden = true
+                    mainBox.isHidden = false
+                    
                     var indexToSelect = 0
                     if selectedItem > 0 {
                         indexToSelect = selectedItem - 1
                     }
                     collectionView.selectItems(at: [IndexPath(item: indexToSelect, section: 0)], scrollPosition: .centeredVertically)
                     updateSettingsPanel(with: Defaults[.customAppSettings][indexToSelect])
+                } else {
+                    ctaBox.isHidden = false
+                    mainBox.isHidden = true
                 }
+            } else {
+                ctaBox.isHidden = false
+                mainBox.isHidden = true
             }
         }
     }
     
+    @IBAction func addApplicationsButtonPress(_ sender: Any) {
+        let controller = AddApplicationViewController()
+        controller.delegate = self
+        self.presentAsSheet(controller)
+    }
+    
     func didSelectApplications(apps: [String], controller: AddApplicationViewController) {
         var indexPaths: Set<IndexPath> = []
+        
+        ctaBox.isHidden = true
+        mainBox.isHidden = false
         
         for app in apps {
             let settings = CustomAppSetting(appName: app, hideAfter: Defaults[.hideAfter], action: .hide)
