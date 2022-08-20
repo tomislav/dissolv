@@ -15,14 +15,14 @@ class AppCollectionViewItem: NSCollectionViewItem {
         super.viewDidLoad()
         
         self.view.wantsLayer = true
-        self.view.layer?.cornerRadius = 9
+        self.view.layer?.cornerRadius = 8
     }
     
     override var isSelected: Bool {
       didSet {
           self.view.layer?.backgroundColor = isSelected ? NSColor.systemBlue.cgColor : NSColor.clear.cgColor
           self.label1.textColor = isSelected ? NSColor.white : NSColor.labelColor
-          self.label2.textColor = isSelected ? NSColor.white : NSColor.labelColor
+          self.label2.textColor = isSelected ? NSColor.white : NSColor.secondaryLabelColor
       }
     }
 }

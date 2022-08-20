@@ -77,10 +77,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 }
             }
         }.tieToLifetime(of: self)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(userDidUpdateAppSetting), name: .userDidUpdateAppSetting, object: nil)
     }
     
     func scheduleTimer(for app: NSRunningApplication, watched: WatchedApplication) {
-        let timer = Timer.scheduledTimer(timeInterval: Defaults[.hideAfter], target: self, selector: #selector(timerFire), userInfo: ["app": app], repeats: false)
+        if let appSettings = Defaults[.customAppSettings].filter({ $0.appName == app.localizedName }).first {
+            if appSettings.hideAfter == 0 {
+                return
+            }
+        }
+        
+        let timer = Timer.scheduledTimer(timeInterval: hideAfter(app: app), target: self, selector: #selector(timerFire), userInfo: ["app": app], repeats: false)
         watched.timer?.invalidate()
         watched.timer = timer
         logger.debug("\(app.localizedName ?? "", privacy: .public) scheduled timer")
@@ -160,7 +168,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             } else {
                 logger.debug("\(app.localizedName ?? "", privacy: .public) is not active")
                 if !app.isHidden {
-                    let timer = Timer.scheduledTimer(timeInterval: Defaults[.hideAfter], target: self, selector: #selector(timerFire), userInfo: ["app": app], repeats: false)
+                    if let appSettings = Defaults[.customAppSettings].filter({ $0.appName == app.localizedName }).first {
+                        if appSettings.hideAfter == 0 {
+                            return
+                        }
+                    }
+                    
+                    let timer = Timer.scheduledTimer(timeInterval: hideAfter(app: app), target: self, selector: #selector(timerFire), userInfo: ["app": app], repeats: false)
                     if let index = watchedApplications.firstIndex(where: {$0.app == app}) {
                         watchedApplications[index].timer?.invalidate()
                         watchedApplications[index].timer = timer
@@ -191,9 +205,36 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let app = userInfo["app"] as! NSRunningApplication
         logger.debug("\(app.localizedName ?? "", privacy: .public) timer fired")
 
+        if let appSettings = Defaults[.customAppSettings].filter({ $0.appName == app.localizedName }).first {
+            if appSettings.action == .quit && !app.isActive {
+                logger.debug("\(app.localizedName ?? "", privacy: .public) quiting")
+                app.terminate()
+                return
+            }
+        }
+        
         if (!app.isHidden && !app.isActive) {
             logger.debug("\(app.localizedName ?? "", privacy: .public) hiding")
             app.hide()
         }
+    }
+    
+    @objc func userDidUpdateAppSetting(_ notification: Notification) {
+        guard let appName = notification.userInfo?["appName"] as? String else { return }
+        
+        for app in watchedApplications {
+            if app.app.localizedName == appName {
+                app.timer?.invalidate()
+                app.timer = nil
+            }
+        }
+    }
+    
+    private func hideAfter(app: NSRunningApplication?) -> Double {
+        if let app = app, let appSettings = Defaults[.customAppSettings].filter({ $0.appName == app.localizedName }).first {
+            return appSettings.hideAfter
+        }
+        
+        return Defaults[.hideAfter]
     }
 }

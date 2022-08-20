@@ -24,6 +24,7 @@
 		7914A98E28994C8500414FCA /* AppCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7914A98C28994C8500414FCA /* AppCollectionViewItem.xib */; };
 		7914A9902899757B00414FCA /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7914A98F2899757B00414FCA /* Types.swift */; };
 		7914A99228997DCA00414FCA /* Defaults+Workaround.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7914A99128997DCA00414FCA /* Defaults+Workaround.swift */; };
+		79FFF85D28AE556B00995261 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79FFF85C28AE556B00995261 /* Notifications.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		7914A98C28994C8500414FCA /* AppCollectionViewItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AppCollectionViewItem.xib; sourceTree = "<group>"; };
 		7914A98F2899757B00414FCA /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
 		7914A99128997DCA00414FCA /* Defaults+Workaround.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Defaults+Workaround.swift"; sourceTree = "<group>"; };
+		79FFF85C28AE556B00995261 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +87,7 @@
 				7912848C2886903E00C74E78 /* Dissolv.entitlements */,
 				7914A9812896B79600414FCA /* DefaultsKeys.swift */,
 				7914A99128997DCA00414FCA /* Defaults+Workaround.swift */,
+				79FFF85C28AE556B00995261 /* Notifications.swift */,
 				7914A98F2899757B00414FCA /* Types.swift */,
 				791284962886A0FF00C74E78 /* main.swift */,
 				791284CB2886D1AA00C74E78 /* AdvancedSettingsViewController.swift */,
@@ -204,6 +207,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79FFF85D28AE556B00995261 /* Notifications.swift in Sources */,
 				7914A9822896B79600414FCA /* DefaultsKeys.swift in Sources */,
 				791284972886A0FF00C74E78 /* main.swift in Sources */,
 				791284CF2886D1AA00C74E78 /* AdvancedSettingsViewController.swift in Sources */,
