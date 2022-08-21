@@ -36,5 +36,10 @@ class AboutViewController: NSViewController, SettingsPane {
     }
     
     @IBAction func acknowledgementsPress(_ sender: Any) {
+        let controller = AcknowledgementsViewController()
+        let myWindow = NSWindow(contentViewController: controller)
+        myWindow.makeKeyAndOrderFront(self)
+        let windowVC = NSWindowController(window: myWindow)
+        windowVC.showWindow(self)
     }
 }
