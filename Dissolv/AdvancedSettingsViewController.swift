@@ -6,7 +6,7 @@ import Defaults
 final class AdvancedSettingsViewController: NSViewController, SettingsPane, AddApplicationDelegate, NSCollectionViewDelegate, NSCollectionViewDataSource {
 	let preferencePaneIdentifier = Settings.PaneIdentifier.advanced
 	let preferencePaneTitle = "Advanced"
-	let toolbarItemIcon = NSImage(systemSymbolName: "gearshape.2", accessibilityDescription: "Advanced settings")!
+	let toolbarItemIcon = NSImage(systemSymbolName: "macwindow.badge.plus", accessibilityDescription: "Advanced settings")!
 
     @IBOutlet weak var collectionView: NSCollectionView!
     @IBOutlet weak var titleLabel: NSTextField!

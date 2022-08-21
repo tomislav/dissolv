@@ -24,6 +24,8 @@
 		7914A98E28994C8500414FCA /* AppCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7914A98C28994C8500414FCA /* AppCollectionViewItem.xib */; };
 		7914A9902899757B00414FCA /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7914A98F2899757B00414FCA /* Types.swift */; };
 		7914A99228997DCA00414FCA /* Defaults+Workaround.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7914A99128997DCA00414FCA /* Defaults+Workaround.swift */; };
+		79408CF028B2501100B7727D /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79408CEE28B2501100B7727D /* AboutViewController.swift */; };
+		79408CF128B2501100B7727D /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79408CEF28B2501100B7727D /* AboutViewController.xib */; };
 		79FFF85D28AE556B00995261 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79FFF85C28AE556B00995261 /* Notifications.swift */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +47,8 @@
 		7914A98C28994C8500414FCA /* AppCollectionViewItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AppCollectionViewItem.xib; sourceTree = "<group>"; };
 		7914A98F2899757B00414FCA /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
 		7914A99128997DCA00414FCA /* Defaults+Workaround.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Defaults+Workaround.swift"; sourceTree = "<group>"; };
+		79408CEE28B2501100B7727D /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
+		79408CEF28B2501100B7727D /* AboutViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AboutViewController.xib; sourceTree = "<group>"; };
 		79FFF85C28AE556B00995261 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -98,6 +102,8 @@
 				7914A9882898330B00414FCA /* AddApplicationViewController.xib */,
 				7914A98B28994C8500414FCA /* AppCollectionViewItem.swift */,
 				7914A98C28994C8500414FCA /* AppCollectionViewItem.xib */,
+				79408CEE28B2501100B7727D /* AboutViewController.swift */,
+				79408CEF28B2501100B7727D /* AboutViewController.xib */,
 			);
 			path = Dissolv;
 			sourceTree = "<group>";
@@ -175,6 +181,7 @@
 				791284D02886D1AA00C74E78 /* GeneralSettingsViewController.xib in Resources */,
 				791284882886903E00C74E78 /* Assets.xcassets in Resources */,
 				7914A98A2898330B00414FCA /* AddApplicationViewController.xib in Resources */,
+				79408CF128B2501100B7727D /* AboutViewController.xib in Resources */,
 				791284CD2886D1AA00C74E78 /* AdvancedSettingsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -209,6 +216,7 @@
 			files = (
 				79FFF85D28AE556B00995261 /* Notifications.swift in Sources */,
 				7914A9822896B79600414FCA /* DefaultsKeys.swift in Sources */,
+				79408CF028B2501100B7727D /* AboutViewController.swift in Sources */,
 				791284972886A0FF00C74E78 /* main.swift in Sources */,
 				791284CF2886D1AA00C74E78 /* AdvancedSettingsViewController.swift in Sources */,
 				7914A9902899757B00414FCA /* Types.swift in Sources */,

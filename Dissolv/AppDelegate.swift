@@ -13,6 +13,7 @@ import Defaults
 extension Settings.PaneIdentifier {
     static let general = Self("general")
     static let advanced = Self("advanced")
+    static let about = Self("about")
 }
 
 class WatchedApplication {
@@ -33,7 +34,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private lazy var settingsWindowController = SettingsWindowController(
         preferencePanes: [
             GeneralSettingsViewController(),
-            AdvancedSettingsViewController()
+            AdvancedSettingsViewController(),
+            AboutViewController()
         ]
     )
     
@@ -79,6 +81,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }.tieToLifetime(of: self)
         
         NotificationCenter.default.addObserver(self, selector: #selector(userDidUpdateAppSetting), name: .userDidUpdateAppSetting, object: nil)
+        
+        if Defaults[.showSettingsOnFirstStart] == false {
+            settingsWindowController.show()
+            Defaults[.showSettingsOnFirstStart] = true
+        }
     }
     
     func scheduleTimer(for app: NSRunningApplication, watched: WatchedApplication) {
@@ -116,6 +123,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     @objc func didTapAbout() {
+        settingsWindowController.show(preferencePane: .about)
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
