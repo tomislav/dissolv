@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>LSApplicationCategoryType</key>
-	<string>public.app-category.productivity</string>
+	<string>public.app-category.utilities</string>
 	<key>LSUIElement</key>
 	<true/>
 </dict>
