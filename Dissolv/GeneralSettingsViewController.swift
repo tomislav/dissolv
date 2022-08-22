@@ -105,7 +105,6 @@ final class GeneralSettingsViewController: NSViewController, SettingsPane {
 	}
     
     @IBAction func sliderDidChange(_ sender: NSSlider) {
-//        logger.debug("Slider did change to \(sender.doubleValue)")
         let value = sender.doubleValue
         
         if value >= 0 && value <= 0.5 {
@@ -204,8 +203,6 @@ final class GeneralSettingsViewController: NSViewController, SettingsPane {
     }
     
     @IBAction func launchAtLoginPressed(_ sender: Any) {
-        logger.debug("Launch at login pressed")
-        
         if launchAtLoginButton.state == .on {
             LaunchAtLogin.isEnabled = true
         } else {

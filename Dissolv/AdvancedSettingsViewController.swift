@@ -54,11 +54,15 @@ final class AdvancedSettingsViewController: NSViewController, SettingsPane, AddA
             self.presentAsSheet(controller)
         } else if sender.selectedSegment == 1 {
             if let selectedItem = collectionView.selectionIndexes.first {
+                let appName = Defaults[.customAppSettings][selectedItem].appName
+                
                 var indexPaths: Set<IndexPath> = []
                 Defaults[.customAppSettings].remove(at: selectedItem)
                 let currentIndexPath = IndexPath(item: selectedItem, section: 0)
                 indexPaths.insert(currentIndexPath)
                 collectionView.deleteItems(at: indexPaths)
+                
+                NotificationCenter.default.post(name: .userDidUpdateAppSetting, object: self, userInfo: ["appName": appName])
                 
                 if Defaults[.customAppSettings].count > 0 {
                     ctaBox.isHidden = true

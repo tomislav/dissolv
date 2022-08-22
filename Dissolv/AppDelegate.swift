@@ -40,11 +40,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     )
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        logger.info("Dissolv starting")
+        let dictionary = Bundle.main.infoDictionary!
+        let version = dictionary["CFBundleShortVersionString"] as! String
+        let build = dictionary["CFBundleVersion"] as! String
         
-        // 2
+        logger.info("Dissolv v\(version) (\(build)) starting")
+        
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
-        // 3
+
         if let button = statusItem.button {
             button.image = NSImage(systemSymbolName: "macwindow.on.rectangle", accessibilityDescription: "dissolve")
         }
@@ -66,7 +69,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 
                 currentApp.addObserver(self, forKeyPath: "isActive", options: .new, context: nil)
                 currentApp.addObserver(self, forKeyPath: "isTerminated", options: .new, context: nil)
-//                currentApp.hide()
+
+                logger.info("Observing \(currentApp.localizedName ?? "")")
             }
         }
         
@@ -98,7 +102,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let timer = Timer.scheduledTimer(timeInterval: hideAfter(app: app), target: self, selector: #selector(timerFire), userInfo: ["app": app], repeats: false)
         watched.timer?.invalidate()
         watched.timer = timer
-        logger.debug("\(app.localizedName ?? "", privacy: .public) scheduled timer")
+        logger.info("Scheduled timer for \(app.localizedName ?? "", privacy: .public): \(Int(self.hideAfter(app: app))) seconds")
     }
     
     func setupMenus() {
@@ -158,7 +162,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                         runningApp.addObserver(self, forKeyPath: "isActive", options: .new, context: nil)
                         runningApp.addObserver(self, forKeyPath: "isTerminated", options: .new, context: nil)
 
-                        logger.debug("\(runningApp.localizedName ?? "", privacy: .public) watched")
+                        logger.info("Observing \(runningApp.localizedName ?? "")")
                     }
                 }
             }
@@ -167,14 +171,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             if app.isActive {
                 let app = object as! NSRunningApplication
                 
-                logger.debug("\(app.localizedName ?? "", privacy: .public) is active")
+                logger.info("\(app.localizedName ?? "", privacy: .public) is active")
 
                 if let index = watchedApplications.firstIndex(where: {$0.app == app}) {
                     watchedApplications[index].timer?.invalidate()
-                    logger.debug("\(app.localizedName ?? "", privacy: .public) invalidated timer")
+                    logger.info("\(app.localizedName ?? "", privacy: .public) invalidated timer")
                 }
             } else {
-                logger.debug("\(app.localizedName ?? "", privacy: .public) is not active")
+                logger.info("\(app.localizedName ?? "", privacy: .public) is not active")
                 if !app.isHidden {
                     if let appSettings = Defaults[.customAppSettings].filter({ $0.appName == app.localizedName }).first {
                         if appSettings.hideAfter == 0 {
@@ -186,7 +190,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     if let index = watchedApplications.firstIndex(where: {$0.app == app}) {
                         watchedApplications[index].timer?.invalidate()
                         watchedApplications[index].timer = timer
-                        logger.debug("\(app.localizedName ?? "", privacy: .public) scheduled timer")
+                        logger.info("Scheduled timer for \(app.localizedName ?? "", privacy: .public): \(Int(self.hideAfter(app: app))) seconds")
                     }
                 }
             }
@@ -202,7 +206,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
                 watchedApplications = watchedApplications.filter { $0.app != app }
                 
-                logger.debug("\(app.localizedName ?? "", privacy: .public) terminated")
+                logger.info("\(app.localizedName ?? "", privacy: .public) terminated")
             }
         }
     }
@@ -215,14 +219,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         if let appSettings = Defaults[.customAppSettings].filter({ $0.appName == app.localizedName }).first {
             if appSettings.action == .quit && !app.isActive {
-                logger.debug("\(app.localizedName ?? "", privacy: .public) quiting")
+                logger.info("\(app.localizedName ?? "", privacy: .public) quiting")
                 app.terminate()
                 return
             }
         }
         
         if (!app.isHidden && !app.isActive) {
-            logger.debug("\(app.localizedName ?? "", privacy: .public) hiding")
+            logger.info("\(app.localizedName ?? "", privacy: .public) hiding")
             app.hide()
         }
     }
@@ -234,6 +238,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             if app.app.localizedName == appName {
                 app.timer?.invalidate()
                 app.timer = nil
+                
+                scheduleTimer(for: app.app, watched: app)
             }
         }
     }
