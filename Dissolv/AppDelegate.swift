@@ -46,6 +46,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         logger.info("Dissolv v\(version) (\(build)) starting")
         
+        if Defaults[.firstRunDate] == nil {
+            Defaults[.firstRunDate] = Date()
+        }
+        
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
 
         if let button = statusItem.button {
@@ -90,9 +94,49 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             settingsWindowController.show()
             Defaults[.showSettingsOnFirstStart] = true
         }
+        
+        #if DEMO
+        if let firstRunDate = Defaults[.firstRunDate] {
+            let daysRemaining = 14 -  Calendar.current.numberOfDaysBetween(firstRunDate, and: Date())
+            var daysString = "Trial expires in \(daysRemaining) days"
+            if daysRemaining == 1 {
+              daysString = "Trial expires in \(daysRemaining) day"
+            }
+            if daysRemaining <= 0 {
+              daysString = "Trial expired"
+            }
+            
+            let alert = NSAlert()
+            alert.messageText = "Dissolv Trial"
+            alert.informativeText = daysString
+            alert.alertStyle = .informational
+            alert.addButton(withTitle: "Buy on the Mac App Store")
+            alert.addButton(withTitle: "Cancel")
+            let modalResult = alert.runModal()
+
+            switch modalResult {
+            case .alertFirstButtonReturn:
+                let url = URL(string:"https://apps.apple.com/app/dissolv/id1640893012")!
+                NSWorkspace.shared.open(url)
+            case .alertSecondButtonReturn:
+                break
+            default:
+                break
+            }
+        }
+        #endif
     }
     
     func scheduleTimer(for app: NSRunningApplication, watched: WatchedApplication) {
+        #if DEMO
+        if let firstRunDate = Defaults[.firstRunDate] {
+            let daysRemaining = 14 -  Calendar.current.numberOfDaysBetween(firstRunDate, and: Date())
+            if daysRemaining <= 0 {
+                return
+            }
+        }
+        #endif
+        
         if let appSettings = Defaults[.customAppSettings].filter({ $0.appName == app.localizedName }).first {
             if appSettings.hideAfter == 0 {
                 return
@@ -110,6 +154,20 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         let one = NSMenuItem(title: "Preferences...", action: #selector(didTapPreferences) , keyEquivalent: ",")
         menu.addItem(one)
+        
+        #if DEMO
+        menu.addItem(NSMenuItem.separator())
+        if let firstRunDate = Defaults[.firstRunDate] {
+            let daysRemaining = 14 -  Calendar.current.numberOfDaysBetween(firstRunDate, and: Date())
+            if daysRemaining <= 0 {
+                let daysString = "Trial expired"
+                let demo1 = NSMenuItem(title: daysString, action: nil, keyEquivalent: "")
+                menu.addItem(demo1)
+            }
+            let demo2 = NSMenuItem(title: "Buy on the Mac App Store", action: #selector(didTapBuy), keyEquivalent: "")
+            menu.addItem(demo2)
+        }
+        #endif
 
         menu.addItem(NSMenuItem.separator())
 
@@ -122,12 +180,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     @objc func didTapPreferences() {
-//        NSApp.activate(ignoringOtherApps: true)
         settingsWindowController.show()
     }
 
     @objc func didTapAbout() {
         settingsWindowController.show(preferencePane: .about)
+    }
+    
+    @objc func didTapBuy() {
+        let url = URL(string:"https://apps.apple.com/app/dissolv/id1640893012")!
+        NSWorkspace.shared.open(url)
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -180,6 +242,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             } else {
                 logger.info("\(app.localizedName ?? "", privacy: .public) is not active")
                 if !app.isHidden {
+                    #if DEMO
+                    if let firstRunDate = Defaults[.firstRunDate] {
+                        let daysRemaining = 14 -  Calendar.current.numberOfDaysBetween(firstRunDate, and: Date())
+                        if daysRemaining <= 0 {
+                            return
+                        }
+                    }
+                    #endif
+                    
                     if let appSettings = Defaults[.customAppSettings].filter({ $0.appName == app.localizedName }).first {
                         if appSettings.hideAfter == 0 {
                             return
@@ -212,6 +283,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     @objc func timerFire(timer:Timer) {
+        #if DEMO
+        if let firstRunDate = Defaults[.firstRunDate] {
+            let daysRemaining = 14 -  Calendar.current.numberOfDaysBetween(firstRunDate, and: Date())
+            if daysRemaining <= 0 {
+                return
+            }
+        }
+        #endif
+        
         let userInfo = timer.userInfo as! Dictionary<String, AnyObject>
         
         let app = userInfo["app"] as! NSRunningApplication
