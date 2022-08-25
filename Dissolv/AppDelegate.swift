@@ -111,7 +111,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             alert.informativeText = daysString
             alert.alertStyle = .informational
             alert.addButton(withTitle: "Buy on the Mac App Store")
-            alert.addButton(withTitle: "Continue Trial")
+            if daysRemaining <= 0 {
+                alert.addButton(withTitle: "Dismiss")
+            } else {
+                alert.addButton(withTitle: "Continue Trial")
+            }
             let modalResult = alert.runModal()
 
             switch modalResult {
