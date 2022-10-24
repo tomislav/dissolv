@@ -10,7 +10,6 @@ final class AdvancedSettingsViewController: NSViewController, SettingsPane, AddA
 
     @IBOutlet weak var collectionView: NSCollectionView!
     @IBOutlet weak var titleLabel: NSTextField!
-    @IBOutlet weak var actionPopupButton: NSPopUpButton!
     @IBOutlet weak var hideAfterLabel: NSTextField!
     @IBOutlet weak var hideAfterSlider: NSSlider!
     @IBOutlet weak var ctaBox: NSBox!
@@ -126,7 +125,7 @@ final class AdvancedSettingsViewController: NSViewController, SettingsPane, AddA
         let item = collectionView.makeItem(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "App"), for: indexPath) as! AppCollectionViewItem
         let setting = Defaults[.customAppSettings][indexPath.item]
         item.label1.stringValue = setting.appName
-        item.label2.stringValue = setting.action == .hide ? "Hide, \(timeLabelFor(hideAfter: setting.hideAfter))" : "Quit, \(timeLabelFor(hideAfter: setting.hideAfter))"
+        item.label2.stringValue = "Hide, \(timeLabelFor(hideAfter: setting.hideAfter))"
         return item
     }
     
@@ -143,12 +142,6 @@ final class AdvancedSettingsViewController: NSViewController, SettingsPane, AddA
     
     func updateSettingsPanel(with item: CustomAppSetting) {
         titleLabel.stringValue = item.appName
-        if item.action == .hide {
-            actionPopupButton.selectItem(at: 0)
-        } else {
-            actionPopupButton.selectItem(at: 1)
-        }
-        
         hideAfterLabel.stringValue = timeLabelFor(hideAfter: item.hideAfter)
         
         switch item.hideAfter {
@@ -269,7 +262,7 @@ final class AdvancedSettingsViewController: NSViewController, SettingsPane, AddA
                 NotificationCenter.default.post(name: .userDidUpdateAppSetting, object: self, userInfo: ["appName": Defaults[.customAppSettings][selectedItem].appName])
                 if let item = collectionView.item(at: selectedItem) as? AppCollectionViewItem {
                     let setting = Defaults[.customAppSettings][selectedItem]
-                    item.label2.stringValue = setting.action == .hide ? "Hide, \(timeLabelFor(hideAfter: setting.hideAfter))" : "Quit, \(timeLabelFor(hideAfter: setting.hideAfter))"
+                    item.label2.stringValue = "Hide, \(timeLabelFor(hideAfter: setting.hideAfter))"
                 }
             }
         } else if value > 0.5 && value <= 1 {
@@ -280,7 +273,7 @@ final class AdvancedSettingsViewController: NSViewController, SettingsPane, AddA
                 NotificationCenter.default.post(name: .userDidUpdateAppSetting, object: self, userInfo: ["appName": Defaults[.customAppSettings][selectedItem].appName])
                 if let item = collectionView.item(at: selectedItem) as? AppCollectionViewItem {
                     let setting = Defaults[.customAppSettings][selectedItem]
-                    item.label2.stringValue = setting.action == .hide ? "Hide, \(timeLabelFor(hideAfter: setting.hideAfter))" : "Quit, \(timeLabelFor(hideAfter: setting.hideAfter))"
+                    item.label2.stringValue = "Hide, \(timeLabelFor(hideAfter: setting.hideAfter))"
                 }
             }
         } else if value > 1 && value <= 2 {
@@ -291,7 +284,7 @@ final class AdvancedSettingsViewController: NSViewController, SettingsPane, AddA
                 NotificationCenter.default.post(name: .userDidUpdateAppSetting, object: self, userInfo: ["appName": Defaults[.customAppSettings][selectedItem].appName])
                 if let item = collectionView.item(at: selectedItem) as? AppCollectionViewItem {
                     let setting = Defaults[.customAppSettings][selectedItem]
-                    item.label2.stringValue = setting.action == .hide ? "Hide, \(timeLabelFor(hideAfter: setting.hideAfter))" : "Quit, \(timeLabelFor(hideAfter: setting.hideAfter))"
+                    item.label2.stringValue = "Hide, \(timeLabelFor(hideAfter: setting.hideAfter))"
                 }
             }
         } else if value > 2 && value <= 3 {
@@ -302,7 +295,7 @@ final class AdvancedSettingsViewController: NSViewController, SettingsPane, AddA
                 NotificationCenter.default.post(name: .userDidUpdateAppSetting, object: self, userInfo: ["appName": Defaults[.customAppSettings][selectedItem].appName])
                 if let item = collectionView.item(at: selectedItem) as? AppCollectionViewItem {
                     let setting = Defaults[.customAppSettings][selectedItem]
-                    item.label2.stringValue = setting.action == .hide ? "Hide, \(timeLabelFor(hideAfter: setting.hideAfter))" : "Quit, \(timeLabelFor(hideAfter: setting.hideAfter))"
+                    item.label2.stringValue = "Hide, \(timeLabelFor(hideAfter: setting.hideAfter))"
                 }
             }
         } else if value > 3 && value <= 4 {
@@ -313,7 +306,7 @@ final class AdvancedSettingsViewController: NSViewController, SettingsPane, AddA
                 NotificationCenter.default.post(name: .userDidUpdateAppSetting, object: self, userInfo: ["appName": Defaults[.customAppSettings][selectedItem].appName])
                 if let item = collectionView.item(at: selectedItem) as? AppCollectionViewItem {
                     let setting = Defaults[.customAppSettings][selectedItem]
-                    item.label2.stringValue = setting.action == .hide ? "Hide, \(timeLabelFor(hideAfter: setting.hideAfter))" : "Quit, \(timeLabelFor(hideAfter: setting.hideAfter))"
+                    item.label2.stringValue = "Hide, \(timeLabelFor(hideAfter: setting.hideAfter))"
                 }
             }
         } else if value > 4 && value <= 6 {
@@ -324,7 +317,7 @@ final class AdvancedSettingsViewController: NSViewController, SettingsPane, AddA
                 NotificationCenter.default.post(name: .userDidUpdateAppSetting, object: self, userInfo: ["appName": Defaults[.customAppSettings][selectedItem].appName])
                 if let item = collectionView.item(at: selectedItem) as? AppCollectionViewItem {
                     let setting = Defaults[.customAppSettings][selectedItem]
-                    item.label2.stringValue = setting.action == .hide ? "Hide, \(timeLabelFor(hideAfter: setting.hideAfter))" : "Quit, \(timeLabelFor(hideAfter: setting.hideAfter))"
+                    item.label2.stringValue = "Hide, \(timeLabelFor(hideAfter: setting.hideAfter))"
                 }
             }
         } else if value > 6 && value <= 8 {
@@ -335,7 +328,7 @@ final class AdvancedSettingsViewController: NSViewController, SettingsPane, AddA
                 NotificationCenter.default.post(name: .userDidUpdateAppSetting, object: self, userInfo: ["appName": Defaults[.customAppSettings][selectedItem].appName])
                 if let item = collectionView.item(at: selectedItem) as? AppCollectionViewItem {
                     let setting = Defaults[.customAppSettings][selectedItem]
-                    item.label2.stringValue = setting.action == .hide ? "Hide, \(timeLabelFor(hideAfter: setting.hideAfter))" : "Quit, \(timeLabelFor(hideAfter: setting.hideAfter))"
+                    item.label2.stringValue = "Hide, \(timeLabelFor(hideAfter: setting.hideAfter))"
                 }
             }
         } else if value > 8 && value <= 12 {
@@ -346,7 +339,7 @@ final class AdvancedSettingsViewController: NSViewController, SettingsPane, AddA
                 NotificationCenter.default.post(name: .userDidUpdateAppSetting, object: self, userInfo: ["appName": Defaults[.customAppSettings][selectedItem].appName])
                 if let item = collectionView.item(at: selectedItem) as? AppCollectionViewItem {
                     let setting = Defaults[.customAppSettings][selectedItem]
-                    item.label2.stringValue = setting.action == .hide ? "Hide, \(timeLabelFor(hideAfter: setting.hideAfter))" : "Quit, \(timeLabelFor(hideAfter: setting.hideAfter))"
+                    item.label2.stringValue = "Hide, \(timeLabelFor(hideAfter: setting.hideAfter))"
                 }
             }
         } else if value > 12 && value <= 15 {
@@ -357,7 +350,7 @@ final class AdvancedSettingsViewController: NSViewController, SettingsPane, AddA
                 NotificationCenter.default.post(name: .userDidUpdateAppSetting, object: self, userInfo: ["appName": Defaults[.customAppSettings][selectedItem].appName])
                 if let item = collectionView.item(at: selectedItem) as? AppCollectionViewItem {
                     let setting = Defaults[.customAppSettings][selectedItem]
-                    item.label2.stringValue = setting.action == .hide ? "Hide, \(timeLabelFor(hideAfter: setting.hideAfter))" : "Quit, \(timeLabelFor(hideAfter: setting.hideAfter))"
+                    item.label2.stringValue = "Hide, \(timeLabelFor(hideAfter: setting.hideAfter))"
                 }
             }
         } else if value > 15 && value <= 17.5 {
@@ -368,7 +361,7 @@ final class AdvancedSettingsViewController: NSViewController, SettingsPane, AddA
                 NotificationCenter.default.post(name: .userDidUpdateAppSetting, object: self, userInfo: ["appName": Defaults[.customAppSettings][selectedItem].appName])
                 if let item = collectionView.item(at: selectedItem) as? AppCollectionViewItem {
                     let setting = Defaults[.customAppSettings][selectedItem]
-                    item.label2.stringValue = setting.action == .hide ? "Hide, \(timeLabelFor(hideAfter: setting.hideAfter))" : "Quit, \(timeLabelFor(hideAfter: setting.hideAfter))"
+                    item.label2.stringValue = "Hide, \(timeLabelFor(hideAfter: setting.hideAfter))"
                 }
             }
         } else if value > 17.5 && value <= 22.5 {
@@ -379,7 +372,7 @@ final class AdvancedSettingsViewController: NSViewController, SettingsPane, AddA
                 NotificationCenter.default.post(name: .userDidUpdateAppSetting, object: self, userInfo: ["appName": Defaults[.customAppSettings][selectedItem].appName])
                 if let item = collectionView.item(at: selectedItem) as? AppCollectionViewItem {
                     let setting = Defaults[.customAppSettings][selectedItem]
-                    item.label2.stringValue = setting.action == .hide ? "Hide, \(timeLabelFor(hideAfter: setting.hideAfter))" : "Quit, \(timeLabelFor(hideAfter: setting.hideAfter))"
+                    item.label2.stringValue = "Hide, \(timeLabelFor(hideAfter: setting.hideAfter))"
                 }
             }
         } else if value > 22.5 && value <= 25 {
@@ -390,7 +383,7 @@ final class AdvancedSettingsViewController: NSViewController, SettingsPane, AddA
                 NotificationCenter.default.post(name: .userDidUpdateAppSetting, object: self, userInfo: ["appName": Defaults[.customAppSettings][selectedItem].appName])
                 if let item = collectionView.item(at: selectedItem) as? AppCollectionViewItem {
                     let setting = Defaults[.customAppSettings][selectedItem]
-                    item.label2.stringValue = setting.action == .hide ? "Hide, \(timeLabelFor(hideAfter: setting.hideAfter))" : "Quit, \(timeLabelFor(hideAfter: setting.hideAfter))"
+                    item.label2.stringValue = "Hide, \(timeLabelFor(hideAfter: setting.hideAfter))"
                 }
             }
         } else if value > 25 && value <= 27.5 {
@@ -401,7 +394,7 @@ final class AdvancedSettingsViewController: NSViewController, SettingsPane, AddA
                 NotificationCenter.default.post(name: .userDidUpdateAppSetting, object: self, userInfo: ["appName": Defaults[.customAppSettings][selectedItem].appName])
                 if let item = collectionView.item(at: selectedItem) as? AppCollectionViewItem {
                     let setting = Defaults[.customAppSettings][selectedItem]
-                    item.label2.stringValue = setting.action == .hide ? "Hide, \(timeLabelFor(hideAfter: setting.hideAfter))" : "Quit, \(timeLabelFor(hideAfter: setting.hideAfter))"
+                    item.label2.stringValue = "Hide, \(timeLabelFor(hideAfter: setting.hideAfter))"
                 }
             }
         } else if value > 27.5 && value <= 32.5 {
@@ -412,7 +405,7 @@ final class AdvancedSettingsViewController: NSViewController, SettingsPane, AddA
                 NotificationCenter.default.post(name: .userDidUpdateAppSetting, object: self, userInfo: ["appName": Defaults[.customAppSettings][selectedItem].appName])
                 if let item = collectionView.item(at: selectedItem) as? AppCollectionViewItem {
                     let setting = Defaults[.customAppSettings][selectedItem]
-                    item.label2.stringValue = setting.action == .hide ? "Hide, \(timeLabelFor(hideAfter: setting.hideAfter))" : "Quit, \(timeLabelFor(hideAfter: setting.hideAfter))"
+                    item.label2.stringValue = "Hide, \(timeLabelFor(hideAfter: setting.hideAfter))"
                 }
             }
         } else if value > 32.5 && value <= 35 {
@@ -423,7 +416,7 @@ final class AdvancedSettingsViewController: NSViewController, SettingsPane, AddA
                 NotificationCenter.default.post(name: .userDidUpdateAppSetting, object: self, userInfo: ["appName": Defaults[.customAppSettings][selectedItem].appName])
                 if let item = collectionView.item(at: selectedItem) as? AppCollectionViewItem {
                     let setting = Defaults[.customAppSettings][selectedItem]
-                    item.label2.stringValue = setting.action == .hide ? "Hide, \(timeLabelFor(hideAfter: setting.hideAfter))" : "Quit, \(timeLabelFor(hideAfter: setting.hideAfter))"
+                    item.label2.stringValue = "Hide, \(timeLabelFor(hideAfter: setting.hideAfter))"
                 }
             }
         } else if value > 35 && value <= 37.5 {
@@ -434,7 +427,7 @@ final class AdvancedSettingsViewController: NSViewController, SettingsPane, AddA
                 NotificationCenter.default.post(name: .userDidUpdateAppSetting, object: self, userInfo: ["appName": Defaults[.customAppSettings][selectedItem].appName])
                 if let item = collectionView.item(at: selectedItem) as? AppCollectionViewItem {
                     let setting = Defaults[.customAppSettings][selectedItem]
-                    item.label2.stringValue = setting.action == .hide ? "Hide, \(timeLabelFor(hideAfter: setting.hideAfter))" : "Quit, \(timeLabelFor(hideAfter: setting.hideAfter))"
+                    item.label2.stringValue = "Hide, \(timeLabelFor(hideAfter: setting.hideAfter))"
                 }
             }
         } else if value > 37.5 && value <= 45 {
@@ -445,7 +438,7 @@ final class AdvancedSettingsViewController: NSViewController, SettingsPane, AddA
                 NotificationCenter.default.post(name: .userDidUpdateAppSetting, object: self, userInfo: ["appName": Defaults[.customAppSettings][selectedItem].appName])
                 if let item = collectionView.item(at: selectedItem) as? AppCollectionViewItem {
                     let setting = Defaults[.customAppSettings][selectedItem]
-                    item.label2.stringValue = setting.action == .hide ? "Hide, \(timeLabelFor(hideAfter: setting.hideAfter))" : "Quit, \(timeLabelFor(hideAfter: setting.hideAfter))"
+                    item.label2.stringValue = "Hide, \(timeLabelFor(hideAfter: setting.hideAfter))"
                 }
             }
         } else if value > 45 && value <= 55 {
@@ -456,7 +449,7 @@ final class AdvancedSettingsViewController: NSViewController, SettingsPane, AddA
                 NotificationCenter.default.post(name: .userDidUpdateAppSetting, object: self, userInfo: ["appName": Defaults[.customAppSettings][selectedItem].appName])
                 if let item = collectionView.item(at: selectedItem) as? AppCollectionViewItem {
                     let setting = Defaults[.customAppSettings][selectedItem]
-                    item.label2.stringValue = setting.action == .hide ? "Hide, \(timeLabelFor(hideAfter: setting.hideAfter))" : "Quit, \(timeLabelFor(hideAfter: setting.hideAfter))"
+                    item.label2.stringValue = "Hide, \(timeLabelFor(hideAfter: setting.hideAfter))"
                 }
             }
         } else if value > 55 && value <= 65 {
@@ -467,7 +460,7 @@ final class AdvancedSettingsViewController: NSViewController, SettingsPane, AddA
                 NotificationCenter.default.post(name: .userDidUpdateAppSetting, object: self, userInfo: ["appName": Defaults[.customAppSettings][selectedItem].appName])
                 if let item = collectionView.item(at: selectedItem) as? AppCollectionViewItem {
                     let setting = Defaults[.customAppSettings][selectedItem]
-                    item.label2.stringValue = setting.action == .hide ? "Hide, \(timeLabelFor(hideAfter: setting.hideAfter))" : "Quit, \(timeLabelFor(hideAfter: setting.hideAfter))"
+                    item.label2.stringValue = "Hide, \(timeLabelFor(hideAfter: setting.hideAfter))"
                 }
             }
         } else if value > 65 && value <= 75 {
@@ -478,7 +471,7 @@ final class AdvancedSettingsViewController: NSViewController, SettingsPane, AddA
                 NotificationCenter.default.post(name: .userDidUpdateAppSetting, object: self, userInfo: ["appName": Defaults[.customAppSettings][selectedItem].appName])
                 if let item = collectionView.item(at: selectedItem) as? AppCollectionViewItem {
                     let setting = Defaults[.customAppSettings][selectedItem]
-                    item.label2.stringValue = setting.action == .hide ? "Hide, \(timeLabelFor(hideAfter: setting.hideAfter))" : "Quit, \(timeLabelFor(hideAfter: setting.hideAfter))"
+                    item.label2.stringValue = "Hide, \(timeLabelFor(hideAfter: setting.hideAfter))"
                 }
             }
         } else if value > 75 && value <= 85 {
@@ -489,7 +482,7 @@ final class AdvancedSettingsViewController: NSViewController, SettingsPane, AddA
                 NotificationCenter.default.post(name: .userDidUpdateAppSetting, object: self, userInfo: ["appName": Defaults[.customAppSettings][selectedItem].appName])
                 if let item = collectionView.item(at: selectedItem) as? AppCollectionViewItem {
                     let setting = Defaults[.customAppSettings][selectedItem]
-                    item.label2.stringValue = setting.action == .hide ? "Hide, \(timeLabelFor(hideAfter: setting.hideAfter))" : "Quit, \(timeLabelFor(hideAfter: setting.hideAfter))"
+                    item.label2.stringValue = "Hide, \(timeLabelFor(hideAfter: setting.hideAfter))"
                 }
             }
         } else if value > 85 && value <= 95 {
@@ -500,7 +493,7 @@ final class AdvancedSettingsViewController: NSViewController, SettingsPane, AddA
                 NotificationCenter.default.post(name: .userDidUpdateAppSetting, object: self, userInfo: ["appName": Defaults[.customAppSettings][selectedItem].appName])
                 if let item = collectionView.item(at: selectedItem) as? AppCollectionViewItem {
                     let setting = Defaults[.customAppSettings][selectedItem]
-                    item.label2.stringValue = setting.action == .hide ? "Hide, \(timeLabelFor(hideAfter: setting.hideAfter))" : "Quit, \(timeLabelFor(hideAfter: setting.hideAfter))"
+                    item.label2.stringValue = "Hide, \(timeLabelFor(hideAfter: setting.hideAfter))"
                 }
             }
         } else if value > 95 && value <= 100 {
@@ -511,27 +504,9 @@ final class AdvancedSettingsViewController: NSViewController, SettingsPane, AddA
                 NotificationCenter.default.post(name: .userDidUpdateAppSetting, object: self, userInfo: ["appName": Defaults[.customAppSettings][selectedItem].appName])
                 if let item = collectionView.item(at: selectedItem) as? AppCollectionViewItem {
                     let setting = Defaults[.customAppSettings][selectedItem]
-                    item.label2.stringValue = setting.action == .hide ? "Hide, \(timeLabelFor(hideAfter: setting.hideAfter))" : "Quit, \(timeLabelFor(hideAfter: setting.hideAfter))"
+                    item.label2.stringValue = "Hide, \(timeLabelFor(hideAfter: setting.hideAfter))"
                 }
             }
         }
     }
-    
-    @IBAction func actionPopupDidChange(_ sender: Any) {
-        guard let selectedItem = collectionView.selectionIndexes.first else { return }
-        
-        if actionPopupButton.indexOfSelectedItem == 0 {
-            Defaults[.customAppSettings][selectedItem].action = .hide
-        } else {
-            Defaults[.customAppSettings][selectedItem].action = .quit
-        }
-        
-        if let item = collectionView.item(at: selectedItem) as? AppCollectionViewItem {
-            let setting = Defaults[.customAppSettings][selectedItem]
-            item.label2.stringValue = setting.action == .hide ? "Hide, \(timeLabelFor(hideAfter: setting.hideAfter))" : "Quit, \(timeLabelFor(hideAfter: setting.hideAfter))"
-        }
-        
-        NotificationCenter.default.post(name: .userDidUpdateAppSetting, object: self, userInfo: ["appName": Defaults[.customAppSettings][selectedItem].appName])
-    }
-    
 }

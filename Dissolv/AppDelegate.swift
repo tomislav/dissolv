@@ -300,14 +300,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         let app = userInfo["app"] as! NSRunningApplication
         logger.debug("\(app.localizedName ?? "", privacy: .public) timer fired")
-
-        if let appSettings = Defaults[.customAppSettings].filter({ $0.appName == app.localizedName }).first {
-            if appSettings.action == .quit && !app.isActive {
-                logger.info("\(app.localizedName ?? "", privacy: .public) quiting")
-                app.terminate()
-                return
-            }
-        }
         
         if (!app.isHidden && !app.isActive) {
             logger.info("\(app.localizedName ?? "", privacy: .public) hiding")

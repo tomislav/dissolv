@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21225" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21225"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="AdvancedSettingsViewController" customModule="Dissolv" customModuleProvider="target">
             <connections>
-                <outlet property="actionPopupButton" destination="g2e-Nn-JO2" id="aTY-PD-klO"/>
                 <outlet property="collectionView" destination="S5H-Sp-pyX" id="IC9-FK-Zpm"/>
                 <outlet property="ctaBox" destination="P6w-dl-cv9" id="9Rd-PE-Jze"/>
                 <outlet property="hideAfterLabel" destination="52n-i7-LwG" id="9aX-4l-ZM9"/>
@@ -80,15 +80,15 @@
                                 </constraints>
                             </box>
                             <gridView xPlacement="center" yPlacement="center" rowAlignment="none" rowSpacing="8" columnSpacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="hLn-aA-W6D">
-                                <rect key="frame" x="20" y="31" width="450" height="122"/>
+                                <rect key="frame" x="20" y="59" width="450" height="94"/>
                                 <constraints>
+                                    <constraint firstItem="j8I-P2-gMG" firstAttribute="leading" secondItem="hLn-aA-W6D" secondAttribute="leading" id="4CY-yJ-m1N"/>
                                     <constraint firstItem="jAo-TC-FG8" firstAttribute="leading" secondItem="hLn-aA-W6D" secondAttribute="leading" id="EzI-PW-sVU"/>
-                                    <constraint firstItem="bDY-wA-aO7" firstAttribute="leading" secondItem="hLn-aA-W6D" secondAttribute="leading" constant="98" id="UBh-eV-2HZ"/>
+                                    <constraint firstItem="52n-i7-LwG" firstAttribute="leading" secondItem="j8I-P2-gMG" secondAttribute="trailing" constant="10" id="cgZ-A9-XSb"/>
                                     <constraint firstAttribute="width" constant="450" id="dEI-gJ-wHv"/>
                                     <constraint firstItem="hwt-Mh-IlT" firstAttribute="leading" secondItem="hLn-aA-W6D" secondAttribute="leading" id="xon-qc-TMK"/>
                                 </constraints>
                                 <rows>
-                                    <gridRow id="Esa-LX-b3L"/>
                                     <gridRow yPlacement="center" height="20" id="4cr-jk-tlz"/>
                                     <gridRow height="18" id="HEr-vI-G7C"/>
                                     <gridRow height="16" id="2dZ-cL-6Lt"/>
@@ -99,39 +99,11 @@
                                     <gridColumn xPlacement="leading" id="ZeR-D0-USv"/>
                                 </columns>
                                 <gridCells>
-                                    <gridCell row="Esa-LX-b3L" column="wnO-XC-3Vv" id="fky-NC-qHl">
-                                        <textField key="contentView" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bDY-wA-aO7">
-                                            <rect key="frame" x="96" y="104" width="47" height="16"/>
-                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Action:" id="TtM-7B-gax">
-                                                <font key="font" usesAppearanceFont="YES"/>
-                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
-                                    </gridCell>
-                                    <gridCell row="Esa-LX-b3L" column="ZeR-D0-USv" id="g8h-cv-GXg">
-                                        <popUpButton key="contentView" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="g2e-Nn-JO2">
-                                            <rect key="frame" x="148" y="98" width="67" height="25"/>
-                                            <popUpButtonCell key="cell" type="push" title="Hide" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="Tok-UD-wa6" id="Czt-Zu-Ss2">
-                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="menu"/>
-                                                <menu key="menu" id="l5o-bd-v7k">
-                                                    <items>
-                                                        <menuItem title="Hide" state="on" id="Tok-UD-wa6"/>
-                                                        <menuItem title="Quit" id="RcK-c7-w1f"/>
-                                                    </items>
-                                                </menu>
-                                            </popUpButtonCell>
-                                            <connections>
-                                                <action selector="actionPopupDidChange:" target="-2" id="bip-ah-Mhp"/>
-                                            </connections>
-                                        </popUpButton>
-                                    </gridCell>
                                     <gridCell row="4cr-jk-tlz" column="wnO-XC-3Vv" headOfMergedCell="bfj-yR-SfJ" xPlacement="fill" id="bfj-yR-SfJ"/>
                                     <gridCell row="4cr-jk-tlz" column="ZeR-D0-USv" headOfMergedCell="bfj-yR-SfJ" id="dcl-kU-qvT"/>
                                     <gridCell row="HEr-vI-G7C" column="wnO-XC-3Vv" id="e5g-et-D8t">
                                         <textField key="contentView" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="j8I-P2-gMG">
-                                            <rect key="frame" x="18" y="49" width="125" height="16"/>
+                                            <rect key="frame" x="-2" y="49" width="125" height="16"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Peform action after:" id="QPP-i7-c4w">
                                                 <font key="font" usesAppearanceFont="YES"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -141,7 +113,7 @@
                                     </gridCell>
                                     <gridCell row="HEr-vI-G7C" column="ZeR-D0-USv" id="cVE-kC-IYQ">
                                         <textField key="contentView" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="52n-i7-LwG">
-                                            <rect key="frame" x="149" y="49" width="42" height="16"/>
+                                            <rect key="frame" x="129" y="49" width="42" height="16"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="1 hour" id="H8u-PX-wJK">
                                                 <font key="font" usesAppearanceFont="YES"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
