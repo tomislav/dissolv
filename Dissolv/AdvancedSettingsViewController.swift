@@ -91,7 +91,10 @@ final class AdvancedSettingsViewController: NSViewController, SettingsPane, AddA
     }
     
     func didSelectApplications(apps: [String], controller: AddApplicationViewController) {
-        guard apps.count > 0 else { return }
+        guard apps.count > 0 else {
+            self.dismiss(controller)
+            return
+        }
         
         collectionView.deselectItems(at: collectionView.selectionIndexPaths)
         
