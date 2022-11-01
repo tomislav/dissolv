@@ -3,11 +3,13 @@ import Preferences
 import OSLog
 import Defaults
 import LaunchAtLogin
+import KeyboardShortcuts
 
 final class GeneralSettingsViewController: NSViewController, SettingsPane {
     @IBOutlet weak var hideAfterLabel: NSTextField!
     @IBOutlet weak var hideAfterSlider: NSSlider!
     @IBOutlet weak var launchAtLoginButton: NSButton!
+    @IBOutlet weak var pauseView: NSView!
     
     private let logger = Logger(
         subsystem: Bundle.main.bundleIdentifier!,
@@ -23,6 +25,10 @@ final class GeneralSettingsViewController: NSViewController, SettingsPane {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
+        let recorder = KeyboardShortcuts.RecorderCocoa(for: .tooglePause)
+        recorder.translatesAutoresizingMaskIntoConstraints = false
+        pauseView.addSubview(recorder)
+        
         hideAfterSlider.isContinuous = true
         
         if LaunchAtLogin.isEnabled {

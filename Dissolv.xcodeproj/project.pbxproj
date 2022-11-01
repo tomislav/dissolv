@@ -24,6 +24,7 @@
 		7914A98E28994C8500414FCA /* AppCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7914A98C28994C8500414FCA /* AppCollectionViewItem.xib */; };
 		7914A9902899757B00414FCA /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7914A98F2899757B00414FCA /* Types.swift */; };
 		7914A99228997DCA00414FCA /* Defaults+Workaround.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7914A99128997DCA00414FCA /* Defaults+Workaround.swift */; };
+		791CE6C529110D5F00741063 /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = 791CE6C429110D5F00741063 /* KeyboardShortcuts */; };
 		793D0E2428B7695C00AC4B20 /* Calendar+NumberOfDaysBetween.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793D0E2328B7695C00AC4B20 /* Calendar+NumberOfDaysBetween.swift */; };
 		79408CF028B2501100B7727D /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79408CEE28B2501100B7727D /* AboutViewController.swift */; };
 		79408CF128B2501100B7727D /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79408CEF28B2501100B7727D /* AboutViewController.xib */; };
@@ -66,6 +67,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7914A9852896D82000414FCA /* LaunchAtLogin in Frameworks */,
+				791CE6C529110D5F00741063 /* KeyboardShortcuts in Frameworks */,
 				7914A9802896B5CF00414FCA /* Defaults in Frameworks */,
 				7912849A2886C94600C74E78 /* Preferences in Frameworks */,
 			);
@@ -141,6 +143,7 @@
 				791284992886C94600C74E78 /* Preferences */,
 				7914A97F2896B5CF00414FCA /* Defaults */,
 				7914A9842896D82000414FCA /* LaunchAtLogin */,
+				791CE6C429110D5F00741063 /* KeyboardShortcuts */,
 			);
 			productName = Dissolv;
 			productReference = 791284822886903D00C74E78 /* Dissolv.app */;
@@ -174,6 +177,7 @@
 				791284982886C94600C74E78 /* XCRemoteSwiftPackageReference "Preferences" */,
 				7914A97E2896B5CF00414FCA /* XCRemoteSwiftPackageReference "Defaults" */,
 				7914A9832896D82000414FCA /* XCRemoteSwiftPackageReference "LaunchAtLogin" */,
+				791CE6C329110D5F00741063 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */,
 			);
 			productRefGroup = 791284832886903D00C74E78 /* Products */;
 			projectDirPath = "";
@@ -642,6 +646,14 @@
 				minimumVersion = 4.2.0;
 			};
 		};
+		791CE6C329110D5F00741063 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/KeyboardShortcuts";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.9.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -659,6 +671,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 7914A9832896D82000414FCA /* XCRemoteSwiftPackageReference "LaunchAtLogin" */;
 			productName = LaunchAtLogin;
+		};
+		791CE6C429110D5F00741063 /* KeyboardShortcuts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 791CE6C329110D5F00741063 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */;
+			productName = KeyboardShortcuts;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

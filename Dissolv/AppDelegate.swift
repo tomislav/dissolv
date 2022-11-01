@@ -9,6 +9,7 @@ import Cocoa
 import OSLog
 import Preferences
 import Defaults
+import KeyboardShortcuts
 
 extension Settings.PaneIdentifier {
     static let general = Self("general")
@@ -25,7 +26,9 @@ class WatchedApplication {
 class AppDelegate: NSObject, NSApplicationDelegate {
     private var statusItem: NSStatusItem!
     private var watchedApplications: [WatchedApplication] = []
-
+    private var isPaused: Bool = false
+    private var pauseMenuItem: NSMenuItem!
+    
     private let logger = Logger(
         subsystem: Bundle.main.bundleIdentifier!,
         category: "Main"
@@ -53,7 +56,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
 
         if let button = statusItem.button {
-            button.image = NSImage(systemSymbolName: "macwindow.on.rectangle", accessibilityDescription: "dissolve")
+            let image = NSImage(named: "menubar-icon")
+            image?.isTemplate = true
+            button.image = image
+        }
+        
+        // Setup keyboard shortcuts listener
+        KeyboardShortcuts.onKeyUp(for: .tooglePause) { [self] in
+            pause()
         }
 
         setupMenus()
@@ -156,11 +166,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func setupMenus() {
         let menu = NSMenu()
 
-        let one = NSMenuItem(title: "Preferences...", action: #selector(didTapPreferences) , keyEquivalent: ",")
-        menu.addItem(one)
+        pauseMenuItem = NSMenuItem(title: "Pause hiding", action: #selector(didTapPause), keyEquivalent: "")
+        pauseMenuItem.setShortcut(for: .tooglePause)
+        menu.addItem(pauseMenuItem)
         
-        #if DEMO
         menu.addItem(NSMenuItem.separator())
+
+        #if DEMO
         if let firstRunDate = Defaults[.firstRunDate] {
             let daysRemaining = 14 -  Calendar.current.numberOfDaysBetween(firstRunDate, and: Date())
             if daysRemaining <= 0 {
@@ -171,12 +183,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             let demo2 = NSMenuItem(title: "Buy on the Mac App Store", action: #selector(didTapBuy), keyEquivalent: "")
             menu.addItem(demo2)
         }
-        #endif
-
         menu.addItem(NSMenuItem.separator())
-
-        let two = NSMenuItem(title: "About Dissolv", action: #selector(didTapAbout) , keyEquivalent: "")
-        menu.addItem(two)
+        #endif
+        
+        let about = NSMenuItem(title: "About Dissolv", action: #selector(didTapAbout) , keyEquivalent: "")
+        menu.addItem(about)
+        
+        let preferences = NSMenuItem(title: "Preferences...", action: #selector(didTapPreferences) , keyEquivalent: ",")
+        menu.addItem(preferences)
+        
+        menu.addItem(NSMenuItem.separator())
 
         menu.addItem(NSMenuItem(title: "Quit", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
 
@@ -189,6 +205,30 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     @objc func didTapAbout() {
         settingsWindowController.show(preferencePane: .about)
+    }
+    
+    @objc func didTapPause() {
+        pause()
+    }
+    
+    func pause() {
+        if isPaused {
+            isPaused = false
+            pauseMenuItem.title = "Pause hiding"
+            if let button = statusItem.button {
+                let image = NSImage(named: "menubar-icon")
+                image?.isTemplate = true
+                button.image = image
+            }
+        } else {
+            isPaused = true
+            pauseMenuItem.title = "Resume hiding"
+            if let button = statusItem.button {
+                let image = NSImage(named: "menubar-icon-paused")
+                image?.isTemplate = true
+                button.image = image
+            }
+        }
     }
     
     @objc func didTapBuy() {
@@ -287,6 +327,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     @objc func timerFire(timer:Timer) {
+        if isPaused { return }
+        
         #if DEMO
         if let firstRunDate = Defaults[.firstRunDate] {
             let daysRemaining = 14 -  Calendar.current.numberOfDaysBetween(firstRunDate, and: Date())
