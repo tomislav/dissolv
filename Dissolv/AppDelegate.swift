@@ -34,13 +34,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         category: "Main"
     )
     
-    private lazy var settingsWindowController = SettingsWindowController(
-        preferencePanes: [
-            GeneralSettingsViewController(),
-            AdvancedSettingsViewController(),
-            AboutViewController()
-        ]
-    )
+    private var settingsWindowController: SettingsWindowController?
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         let dictionary = Bundle.main.infoDictionary!
@@ -101,7 +95,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(userDidUpdateAppSetting), name: .userDidUpdateAppSetting, object: nil)
         
         if Defaults[.showSettingsOnFirstStart] == false {
-            settingsWindowController.show()
+            settingsWindowController?.close()
+            settingsWindowController = SettingsWindowController(
+                preferencePanes: [
+                    GeneralSettingsViewController(),
+                    AdvancedSettingsViewController(),
+                    AboutViewController()
+                ]
+            )
+            settingsWindowController?.show()
             Defaults[.showSettingsOnFirstStart] = true
         }
         
@@ -200,11 +202,27 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     @objc func didTapPreferences() {
-        settingsWindowController.show()
+        settingsWindowController?.close()
+        settingsWindowController = SettingsWindowController(
+            preferencePanes: [
+                GeneralSettingsViewController(),
+                AdvancedSettingsViewController(),
+                AboutViewController()
+            ]
+        )
+        settingsWindowController?.show()
     }
 
     @objc func didTapAbout() {
-        settingsWindowController.show(preferencePane: .about)
+        settingsWindowController?.close()
+        settingsWindowController = SettingsWindowController(
+            preferencePanes: [
+                GeneralSettingsViewController(),
+                AdvancedSettingsViewController(),
+                AboutViewController()
+            ]
+        )
+        settingsWindowController?.show(preferencePane: .about)
     }
     
     @objc func didTapPause() {
