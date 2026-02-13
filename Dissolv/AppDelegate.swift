@@ -17,374 +17,472 @@ extension Settings.PaneIdentifier {
     static let about = Self("about")
 }
 
-class WatchedApplication {
-    var app: NSRunningApplication!
+final class WatchedApplication {
+    let app: NSRunningApplication
     var timer: Timer?
+    var isActiveObservation: NSKeyValueObservation?
+    var isTerminatedObservation: NSKeyValueObservation?
+
+    init(app: NSRunningApplication) {
+        self.app = app
+    }
+
+    func invalidate() {
+        timer?.invalidate()
+        timer = nil
+
+        isActiveObservation?.invalidate()
+        isActiveObservation = nil
+
+        isTerminatedObservation?.invalidate()
+        isTerminatedObservation = nil
+    }
 }
 
 //@main
 class AppDelegate: NSObject, NSApplicationDelegate {
-    private var statusItem: NSStatusItem!
-    private var watchedApplications: [WatchedApplication] = []
-    private var isPaused: Bool = false
-    private var pauseMenuItem: NSMenuItem!
-    
+    private var statusItem: NSStatusItem?
+    private var watchedApplications: [pid_t: WatchedApplication] = [:]
+    private var isPaused = false
+    private var pauseMenuItem: NSMenuItem?
+    private var settingsWindowController: SettingsWindowController?
+    private var workspaceObservers: [NSObjectProtocol] = []
+
     private let logger = Logger(
-        subsystem: Bundle.main.bundleIdentifier!,
+        subsystem: Bundle.main.bundleIdentifier ?? "com.7sols.Dissolv",
         category: "Main"
     )
-    
-    private var settingsWindowController: SettingsWindowController?
-    
+
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        let dictionary = Bundle.main.infoDictionary!
-        let version = dictionary["CFBundleShortVersionString"] as! String
-        let build = dictionary["CFBundleVersion"] as! String
-        
+        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown"
+        let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "Unknown"
         logger.info("Dissolv v\(version) (\(build)) starting")
-        
+
         if Defaults[.firstRunDate] == nil {
             Defaults[.firstRunDate] = Date()
         }
-        
-        statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
 
-        if let button = statusItem.button {
-            let image = NSImage(named: "menubar-icon")
-            image?.isTemplate = true
-            button.image = image
-        }
-        
-        // Setup keyboard shortcuts listener
-        KeyboardShortcuts.onKeyUp(for: .tooglePause) { [self] in
-            pause()
+        setupStatusItem()
+
+        KeyboardShortcuts.onKeyUp(for: .togglePause) { [weak self] in
+            self?.pause()
         }
 
         setupMenus()
-        
-        let ws = NSWorkspace.shared
-        let apps = ws.runningApplications
-        for currentApp in apps
-        {
-            if (currentApp.activationPolicy == .regular) {
-                let watchedApplication = WatchedApplication()
-                watchedApplication.app = currentApp
-                watchedApplications.append(watchedApplication)
-                
-                if !currentApp.isHidden {
-                    scheduleTimer(for: currentApp, watched: watchedApplication)
-                }
-                
-                currentApp.addObserver(self, forKeyPath: "isActive", options: .new, context: nil)
-                currentApp.addObserver(self, forKeyPath: "isTerminated", options: .new, context: nil)
+        observeWorkspaceApplications()
 
-                logger.info("Observing \(currentApp.localizedName ?? "")")
-            }
+        for runningApp in NSWorkspace.shared.runningApplications {
+            beginWatchingApplicationIfNeeded(runningApp)
         }
-        
-        ws.addObserver(self, forKeyPath: "runningApplications", options: .new, context: nil)
-        
-        let _ = Defaults.observe(.hideAfter, options: []) { change in
-            for app in self.watchedApplications {
-                if !app.app.isHidden {
-                    self.scheduleTimer(for: app.app, watched: app)
-                }
-            }
+
+        migrateLegacyCustomSettings()
+
+        _ = Defaults.observe(.hideAfter, options: []) { [weak self] _ in
+            self?.rescheduleVisibleInactiveApps()
         }.tieToLifetime(of: self)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(userDidUpdateAppSetting), name: .userDidUpdateAppSetting, object: nil)
-        
-        if Defaults[.showSettingsOnFirstStart] == false {
-            settingsWindowController?.close()
-            settingsWindowController = SettingsWindowController(
-                preferencePanes: [
-                    GeneralSettingsViewController(),
-                    AdvancedSettingsViewController(),
-                    AboutViewController()
-                ]
-            )
-            settingsWindowController?.show()
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(userDidUpdateAppSetting(_:)),
+            name: .userDidUpdateAppSetting,
+            object: nil
+        )
+
+        if !Defaults[.showSettingsOnFirstStart] {
+            showSettings()
             Defaults[.showSettingsOnFirstStart] = true
         }
-        
-        #if DEMO
-        if let firstRunDate = Defaults[.firstRunDate] {
-            let daysRemaining = 14 -  Calendar.current.numberOfDaysBetween(firstRunDate, and: Date())
-            var daysString = "Trial expires in \(daysRemaining) days"
-            if daysRemaining == 1 {
-              daysString = "Trial expires in \(daysRemaining) day"
-            }
-            if daysRemaining <= 0 {
-              daysString = "Trial expired"
-            }
-            
-            let alert = NSAlert()
-            alert.messageText = "Dissolv Trial"
-            alert.informativeText = daysString
-            alert.alertStyle = .informational
-            alert.addButton(withTitle: "Buy on the Mac App Store")
-            if daysRemaining <= 0 {
-                alert.addButton(withTitle: "Dismiss")
-            } else {
-                alert.addButton(withTitle: "Continue Trial")
-            }
-            let modalResult = alert.runModal()
-
-            switch modalResult {
-            case .alertFirstButtonReturn:
-                let url = URL(string:"https://apps.apple.com/app/dissolv/id1640893012")!
-                NSWorkspace.shared.open(url)
-            case .alertSecondButtonReturn:
-                break
-            default:
-                break
-            }
-        }
-        #endif
-    }
-    
-    func scheduleTimer(for app: NSRunningApplication, watched: WatchedApplication) {
-        #if DEMO
-        if let firstRunDate = Defaults[.firstRunDate] {
-            let daysRemaining = 14 -  Calendar.current.numberOfDaysBetween(firstRunDate, and: Date())
-            if daysRemaining <= 0 {
-                return
-            }
-        }
-        #endif
-        
-        if let appSettings = Defaults[.customAppSettings].filter({ $0.appName == app.localizedName }).first {
-            if appSettings.hideAfter == 0 {
-                return
-            }
-        }
-        
-        let timer = Timer.scheduledTimer(timeInterval: hideAfter(app: app), target: self, selector: #selector(timerFire), userInfo: ["app": app], repeats: false)
-        watched.timer?.invalidate()
-        watched.timer = timer
-        logger.info("Scheduled timer for \(app.localizedName ?? "", privacy: .public): \(Int(self.hideAfter(app: app))) seconds")
-    }
-    
-    func setupMenus() {
-        let menu = NSMenu()
-
-        pauseMenuItem = NSMenuItem(title: "Pause hiding", action: #selector(didTapPause), keyEquivalent: "")
-        pauseMenuItem.setShortcut(for: .tooglePause)
-        menu.addItem(pauseMenuItem)
-        
-        menu.addItem(NSMenuItem.separator())
-
-        #if DEMO
-        if let firstRunDate = Defaults[.firstRunDate] {
-            let daysRemaining = 14 -  Calendar.current.numberOfDaysBetween(firstRunDate, and: Date())
-            if daysRemaining <= 0 {
-                let daysString = "Trial expired"
-                let demo1 = NSMenuItem(title: daysString, action: nil, keyEquivalent: "")
-                menu.addItem(demo1)
-            }
-            let demo2 = NSMenuItem(title: "Buy on the Mac App Store", action: #selector(didTapBuy), keyEquivalent: "")
-            menu.addItem(demo2)
-        }
-        menu.addItem(NSMenuItem.separator())
-        #endif
-        
-        let about = NSMenuItem(title: "About Dissolv", action: #selector(didTapAbout) , keyEquivalent: "")
-        menu.addItem(about)
-        
-        let preferences = NSMenuItem(title: "Preferences...", action: #selector(didTapPreferences) , keyEquivalent: ",")
-        menu.addItem(preferences)
-        
-        menu.addItem(NSMenuItem.separator())
-
-        menu.addItem(NSMenuItem(title: "Quit", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
-
-        statusItem.menu = menu
-    }
-
-    @objc func didTapPreferences() {
-        settingsWindowController?.close()
-        settingsWindowController = SettingsWindowController(
-            preferencePanes: [
-                GeneralSettingsViewController(),
-                AdvancedSettingsViewController(),
-                AboutViewController()
-            ]
-        )
-        settingsWindowController?.show()
-    }
-
-    @objc func didTapAbout() {
-        settingsWindowController?.close()
-        settingsWindowController = SettingsWindowController(
-            preferencePanes: [
-                GeneralSettingsViewController(),
-                AdvancedSettingsViewController(),
-                AboutViewController()
-            ]
-        )
-        settingsWindowController?.show(preferencePane: .about)
-    }
-    
-    @objc func didTapPause() {
-        pause()
-    }
-    
-    func pause() {
-        if isPaused {
-            isPaused = false
-            pauseMenuItem.title = "Pause hiding"
-            if let button = statusItem.button {
-                let image = NSImage(named: "menubar-icon")
-                image?.isTemplate = true
-                button.image = image
-            }
-        } else {
-            isPaused = true
-            pauseMenuItem.title = "Resume hiding"
-            if let button = statusItem.button {
-                let image = NSImage(named: "menubar-icon-paused")
-                image?.isTemplate = true
-                button.image = image
-            }
-        }
-    }
-    
-    @objc func didTapBuy() {
-        let url = URL(string:"https://apps.apple.com/app/dissolv/id1640893012")!
-        NSWorkspace.shared.open(url)
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
+        teardownObservers()
     }
 
     func applicationSupportsSecureRestorableState(_ app: NSApplication) -> Bool {
-        return true
+        true
     }
 
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if keyPath == "runningApplications" {
-            // Find new
-            for runningApp in NSWorkspace.shared.runningApplications {
-                if (runningApp.activationPolicy == .regular) {
-                    var found: Bool = false
-                    for watchedApp in watchedApplications {
-                        if watchedApp.app == runningApp {
-                            found = true
-                        }
-                    }
-                    
-                    if !found {
-                        let watchedApplication = WatchedApplication()
-                        watchedApplication.app = runningApp
-                        watchedApplications.append(watchedApplication)
-                        
-                        if !runningApp.isHidden {
-                            scheduleTimer(for: runningApp, watched: watchedApplication)
-                        }
-                        
-                        runningApp.addObserver(self, forKeyPath: "isActive", options: .new, context: nil)
-                        runningApp.addObserver(self, forKeyPath: "isTerminated", options: .new, context: nil)
+    @objc private func didTapPreferences() {
+        showSettings()
+    }
 
-                        logger.info("Observing \(runningApp.localizedName ?? "")")
-                    }
+    @objc private func didTapAbout() {
+        showSettings(preferencePane: .about)
+    }
+
+    @objc private func didTapPause() {
+        pause()
+    }
+
+    @objc private func didTapBuy() {
+        guard let url = URL(string: "https://apps.apple.com/app/dissolv/id1640893012") else {
+            return
+        }
+
+        NSWorkspace.shared.open(url)
+    }
+
+    @objc private func userDidUpdateAppSetting(_ notification: Notification) {
+        let appIdentifier = notification.userInfo?["appIdentifier"] as? String
+        let appName = notification.userInfo?["appName"] as? String
+
+        for watched in watchedApplications.values {
+            if let appIdentifier, watched.app.bundleIdentifier == appIdentifier {
+                watched.timer?.invalidate()
+                watched.timer = nil
+                if !watched.app.isHidden && !watched.app.isActive {
+                    scheduleTimer(for: watched)
                 }
+                continue
             }
-        } else if keyPath == "isActive" {
-            let app = object as! NSRunningApplication
-            if app.isActive {
-                let app = object as! NSRunningApplication
-                
-                logger.info("\(app.localizedName ?? "", privacy: .public) is active")
 
-                if let index = watchedApplications.firstIndex(where: {$0.app == app}) {
-                    watchedApplications[index].timer?.invalidate()
-                    logger.info("\(app.localizedName ?? "", privacy: .public) invalidated timer")
+            if let appName, watched.app.localizedName == appName {
+                watched.timer?.invalidate()
+                watched.timer = nil
+                if !watched.app.isHidden && !watched.app.isActive {
+                    scheduleTimer(for: watched)
                 }
-            } else {
-                logger.info("\(app.localizedName ?? "", privacy: .public) is not active")
-                if !app.isHidden {
-                    #if DEMO
-                    if let firstRunDate = Defaults[.firstRunDate] {
-                        let daysRemaining = 14 -  Calendar.current.numberOfDaysBetween(firstRunDate, and: Date())
-                        if daysRemaining <= 0 {
-                            return
-                        }
-                    }
-                    #endif
-                    
-                    if let appSettings = Defaults[.customAppSettings].filter({ $0.appName == app.localizedName }).first {
-                        if appSettings.hideAfter == 0 {
-                            return
-                        }
-                    }
-                    
-                    let timer = Timer.scheduledTimer(timeInterval: hideAfter(app: app), target: self, selector: #selector(timerFire), userInfo: ["app": app], repeats: false)
-                    if let index = watchedApplications.firstIndex(where: {$0.app == app}) {
-                        watchedApplications[index].timer?.invalidate()
-                        watchedApplications[index].timer = timer
-                        logger.info("Scheduled timer for \(app.localizedName ?? "", privacy: .public): \(Int(self.hideAfter(app: app))) seconds")
-                    }
-                }
-            }
-        } else if keyPath == "isTerminated" {
-            let app = object as! NSRunningApplication
-
-            if app.isTerminated {
-                app.removeObserver(self, forKeyPath: "isTerminated")
-                app.removeObserver(self, forKeyPath: "isActive")
-                if let watchedApp = watchedApplications.filter({ $0.app == app }).first {
-                    watchedApp.timer?.invalidate()
-                }
-
-                watchedApplications = watchedApplications.filter { $0.app != app }
-                
-                logger.info("\(app.localizedName ?? "", privacy: .public) terminated")
             }
         }
     }
-    
-    @objc func timerFire(timer:Timer) {
-        if isPaused { return }
-        
-        #if DEMO
-        if let firstRunDate = Defaults[.firstRunDate] {
-            let daysRemaining = 14 -  Calendar.current.numberOfDaysBetween(firstRunDate, and: Date())
-            if daysRemaining <= 0 {
+
+    private func setupStatusItem() {
+        statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+        updateStatusIcon()
+    }
+
+    private func updateStatusIcon() {
+        guard let button = statusItem?.button else {
+            return
+        }
+
+        let imageName = isPaused ? "menubar-icon-paused" : "menubar-icon"
+        let image = NSImage(named: imageName)
+        image?.isTemplate = true
+        button.image = image
+    }
+
+    private func setupMenus() {
+        let menu = NSMenu()
+
+        let pauseItem = NSMenuItem(title: "Pause hiding", action: #selector(didTapPause), keyEquivalent: "")
+        pauseItem.setShortcut(for: .togglePause)
+        pauseMenuItem = pauseItem
+        menu.addItem(pauseItem)
+
+        menu.addItem(NSMenuItem.separator())
+
+        menu.addItem(NSMenuItem(title: "About Dissolv", action: #selector(didTapAbout), keyEquivalent: ""))
+        menu.addItem(NSMenuItem(title: "Preferences...", action: #selector(didTapPreferences), keyEquivalent: ","))
+        menu.addItem(NSMenuItem.separator())
+        menu.addItem(NSMenuItem(title: "Quit", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
+
+        statusItem?.menu = menu
+    }
+
+    private func showSettings(preferencePane: Settings.PaneIdentifier? = nil) {
+        settingsWindowController?.close()
+        settingsWindowController = SettingsWindowController(
+            panes: [
+                Settings.Pane(
+                    identifier: .general,
+                    title: "General",
+                    toolbarIcon: NSImage(
+                        systemSymbolName: "gearshape",
+                        accessibilityDescription: "General settings"
+                    )!
+                ) {
+                    GeneralSettingsView()
+                },
+                Settings.Pane(
+                    identifier: .advanced,
+                    title: "Advanced",
+                    toolbarIcon: NSImage(
+                        systemSymbolName: "macwindow.badge.plus",
+                        accessibilityDescription: "Advanced settings"
+                    )!
+                ) {
+                    AdvancedSettingsView()
+                },
+                Settings.Pane(
+                    identifier: .about,
+                    title: "About",
+                    toolbarIcon: NSImage(
+                        systemSymbolName: "macwindow.on.rectangle",
+                        accessibilityDescription: "About the application"
+                    )!
+                ) {
+                    AboutSettingsView()
+                },
+            ],
+            animated: false
+        )
+
+        if let preferencePane {
+            settingsWindowController?.show(preferencePane: preferencePane)
+        } else {
+            settingsWindowController?.show()
+        }
+    }
+
+    private func pause() {
+        isPaused.toggle()
+        pauseMenuItem?.title = isPaused ? "Resume hiding" : "Pause hiding"
+        updateStatusIcon()
+
+        if !isPaused {
+            rescheduleVisibleInactiveApps()
+        }
+    }
+
+    private func observeWorkspaceApplications() {
+        let center = NSWorkspace.shared.notificationCenter
+
+        workspaceObservers.append(
+            center.addObserver(forName: NSWorkspace.didLaunchApplicationNotification, object: nil, queue: .main) { [weak self] notification in
+                guard let app = notification.userInfo?[NSWorkspace.applicationUserInfoKey] as? NSRunningApplication else {
+                    return
+                }
+
+                self?.beginWatchingApplicationIfNeeded(app)
+            }
+        )
+
+        workspaceObservers.append(
+            center.addObserver(forName: NSWorkspace.didTerminateApplicationNotification, object: nil, queue: .main) { [weak self] notification in
+                guard let app = notification.userInfo?[NSWorkspace.applicationUserInfoKey] as? NSRunningApplication else {
+                    return
+                }
+
+                self?.removeWatchedApplication(forProcessIdentifier: app.processIdentifier)
+            }
+        )
+
+        workspaceObservers.append(
+            center.addObserver(forName: NSWorkspace.didHideApplicationNotification, object: nil, queue: .main) { [weak self] notification in
+                guard let app = notification.userInfo?[NSWorkspace.applicationUserInfoKey] as? NSRunningApplication else {
+                    return
+                }
+
+                self?.watchedApplications[app.processIdentifier]?.timer?.invalidate()
+                self?.watchedApplications[app.processIdentifier]?.timer = nil
+            }
+        )
+
+        workspaceObservers.append(
+            center.addObserver(forName: NSWorkspace.didUnhideApplicationNotification, object: nil, queue: .main) { [weak self] notification in
+                guard
+                    let self,
+                    let app = notification.userInfo?[NSWorkspace.applicationUserInfoKey] as? NSRunningApplication
+                else {
+                    return
+                }
+
+                self.beginWatchingApplicationIfNeeded(app)
+                if !app.isActive {
+                    self.scheduleTimerIfNeeded(forProcessIdentifier: app.processIdentifier)
+                }
+            }
+        )
+    }
+
+    private func beginWatchingApplicationIfNeeded(_ app: NSRunningApplication) {
+        guard app.activationPolicy == .regular else {
+            return
+        }
+
+        let processIdentifier = app.processIdentifier
+        guard watchedApplications[processIdentifier] == nil else {
+            return
+        }
+
+        let watched = WatchedApplication(app: app)
+        watchedApplications[processIdentifier] = watched
+
+        watched.isActiveObservation = app.observe(\.isActive, options: [.new]) { [weak self] app, _ in
+            self?.handleActiveStateChange(for: app)
+        }
+
+        watched.isTerminatedObservation = app.observe(\.isTerminated, options: [.new]) { [weak self] app, _ in
+            guard app.isTerminated else {
                 return
             }
+
+            self?.removeWatchedApplication(forProcessIdentifier: app.processIdentifier)
         }
-        #endif
-        
-        let userInfo = timer.userInfo as! Dictionary<String, AnyObject>
-        
-        let app = userInfo["app"] as! NSRunningApplication
+
+        updateCustomSettingDisplayNameIfNeeded(for: app)
+
+        if !app.isHidden && !app.isActive {
+            scheduleTimer(for: watched)
+        }
+
+        logger.info("Observing \(app.localizedName ?? "", privacy: .public)")
+    }
+
+    private func removeWatchedApplication(forProcessIdentifier processIdentifier: pid_t) {
+        guard let watched = watchedApplications[processIdentifier] else {
+            return
+        }
+
+        watched.invalidate()
+        watchedApplications.removeValue(forKey: processIdentifier)
+        logger.info("\(watched.app.localizedName ?? "", privacy: .public) terminated")
+    }
+
+    private func handleActiveStateChange(for app: NSRunningApplication) {
+        guard let watched = watchedApplications[app.processIdentifier] else {
+            return
+        }
+
+        if app.isActive {
+            watched.timer?.invalidate()
+            watched.timer = nil
+            logger.info("\(app.localizedName ?? "", privacy: .public) is active")
+            return
+        }
+
+        logger.info("\(app.localizedName ?? "", privacy: .public) is not active")
+        if !app.isHidden {
+            scheduleTimer(for: watched)
+        }
+    }
+
+    private func scheduleTimerIfNeeded(forProcessIdentifier processIdentifier: pid_t) {
+        guard let watched = watchedApplications[processIdentifier] else {
+            return
+        }
+
+        scheduleTimer(for: watched)
+    }
+
+    private func scheduleTimer(for watched: WatchedApplication) {
+        let app = watched.app
+
+        if shouldSuppressHiding(for: app) {
+            watched.timer?.invalidate()
+            watched.timer = nil
+            return
+        }
+
+        let hideAfterSeconds = hideAfter(for: app)
+        guard hideAfterSeconds > 0 else {
+            watched.timer?.invalidate()
+            watched.timer = nil
+            return
+        }
+
+        watched.timer?.invalidate()
+        watched.timer = Timer.scheduledTimer(withTimeInterval: hideAfterSeconds, repeats: false) { [weak self, weak app] _ in
+            guard let self, let app else {
+                return
+            }
+
+            self.handleTimerFire(forProcessIdentifier: app.processIdentifier)
+        }
+
+        logger.info("Scheduled timer for \(app.localizedName ?? "", privacy: .public): \(Int(hideAfterSeconds)) seconds")
+    }
+
+    private func handleTimerFire(forProcessIdentifier processIdentifier: pid_t) {
+        if isPaused {
+            return
+        }
+
+        guard let watched = watchedApplications[processIdentifier] else {
+            return
+        }
+
+        let app = watched.app
         logger.debug("\(app.localizedName ?? "", privacy: .public) timer fired")
-        
-        if (!app.isHidden && !app.isActive) {
+
+        if !app.isHidden && !app.isActive {
             logger.info("\(app.localizedName ?? "", privacy: .public) hiding")
             app.hide()
         }
     }
-    
-    @objc func userDidUpdateAppSetting(_ notification: Notification) {
-        guard let appName = notification.userInfo?["appName"] as? String else { return }
-        
-        for app in watchedApplications {
-            if app.app.localizedName == appName {
-                app.timer?.invalidate()
-                app.timer = nil
-                
-                scheduleTimer(for: app.app, watched: app)
-            }
+
+    private func rescheduleVisibleInactiveApps() {
+        for watched in watchedApplications.values where !watched.app.isHidden && !watched.app.isActive {
+            scheduleTimer(for: watched)
         }
     }
-    
-    private func hideAfter(app: NSRunningApplication?) -> Double {
-        if let app = app, let appSettings = Defaults[.customAppSettings].filter({ $0.appName == app.localizedName }).first {
-            return appSettings.hideAfter
+
+    private func hideAfter(for app: NSRunningApplication?) -> Double {
+        guard let app else {
+            return Defaults[.hideAfter]
         }
-        
-        return Defaults[.hideAfter]
+
+        let identity = AppIdentity(bundleIdentifier: app.bundleIdentifier, localizedName: app.localizedName)
+        return AppSettingsResolver.hideAfter(
+            for: identity,
+            settings: Defaults[.customAppSettings],
+            defaultHideAfter: Defaults[.hideAfter]
+        )
+    }
+
+    private func shouldSuppressHiding(for app: NSRunningApplication) -> Bool {
+        return hideAfter(for: app) == 0
+    }
+
+    private func updateCustomSettingDisplayNameIfNeeded(for app: NSRunningApplication) {
+        guard
+            let bundleIdentifier = app.bundleIdentifier,
+            let localizedName = app.localizedName
+        else {
+            return
+        }
+
+        var settings = Defaults[.customAppSettings]
+        guard let index = settings.firstIndex(where: { $0.bundleIdentifier == bundleIdentifier }) else {
+            return
+        }
+
+        if settings[index].appName != localizedName {
+            settings[index].appName = localizedName
+            Defaults[.customAppSettings] = settings
+        }
+    }
+
+    private func migrateLegacyCustomSettings() {
+        var settings = Defaults[.customAppSettings]
+        var didChange = false
+        let runningApps = NSWorkspace.shared.runningApplications
+
+        for index in settings.indices {
+            let setting = settings[index]
+            guard setting.bundleIdentifier == setting.appName else {
+                continue
+            }
+
+            guard
+                let runningApp = runningApps.first(where: { $0.localizedName == setting.appName }),
+                let bundleIdentifier = runningApp.bundleIdentifier
+            else {
+                continue
+            }
+
+            settings[index].bundleIdentifier = bundleIdentifier
+            didChange = true
+        }
+
+        if didChange {
+            Defaults[.customAppSettings] = settings
+        }
+    }
+
+    private func teardownObservers() {
+        NotificationCenter.default.removeObserver(self, name: .userDidUpdateAppSetting, object: nil)
+
+        let workspaceNotificationCenter = NSWorkspace.shared.notificationCenter
+        for observer in workspaceObservers {
+            workspaceNotificationCenter.removeObserver(observer)
+        }
+        workspaceObservers.removeAll()
+
+        for watched in watchedApplications.values {
+            watched.invalidate()
+        }
+        watchedApplications.removeAll()
     }
 }

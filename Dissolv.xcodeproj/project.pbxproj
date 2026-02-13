@@ -11,28 +11,34 @@
 		791284882886903E00C74E78 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 791284872886903E00C74E78 /* Assets.xcassets */; };
 		791284972886A0FF00C74E78 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791284962886A0FF00C74E78 /* main.swift */; };
 		7912849A2886C94600C74E78 /* Preferences in Frameworks */ = {isa = PBXBuildFile; productRef = 791284992886C94600C74E78 /* Preferences */; };
-		791284CD2886D1AA00C74E78 /* AdvancedSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 791284C92886D1AA00C74E78 /* AdvancedSettingsViewController.xib */; };
-		791284CE2886D1AA00C74E78 /* GeneralSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791284CA2886D1AA00C74E78 /* GeneralSettingsViewController.swift */; };
-		791284CF2886D1AA00C74E78 /* AdvancedSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791284CB2886D1AA00C74E78 /* AdvancedSettingsViewController.swift */; };
-		791284D02886D1AA00C74E78 /* GeneralSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 791284CC2886D1AA00C74E78 /* GeneralSettingsViewController.xib */; };
+		791284D12886D1AA00C74E78 /* GeneralSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791284D22886D1AA00C74E78 /* GeneralSettingsView.swift */; };
 		7914A9802896B5CF00414FCA /* Defaults in Frameworks */ = {isa = PBXBuildFile; productRef = 7914A97F2896B5CF00414FCA /* Defaults */; };
 		7914A9822896B79600414FCA /* DefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7914A9812896B79600414FCA /* DefaultsKeys.swift */; };
 		7914A9852896D82000414FCA /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 7914A9842896D82000414FCA /* LaunchAtLogin */; };
-		7914A9892898330B00414FCA /* AddApplicationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7914A9872898330B00414FCA /* AddApplicationViewController.swift */; };
-		7914A98A2898330B00414FCA /* AddApplicationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7914A9882898330B00414FCA /* AddApplicationViewController.xib */; };
-		7914A98D28994C8500414FCA /* AppCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7914A98B28994C8500414FCA /* AppCollectionViewItem.swift */; };
-		7914A98E28994C8500414FCA /* AppCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7914A98C28994C8500414FCA /* AppCollectionViewItem.xib */; };
 		7914A9902899757B00414FCA /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7914A98F2899757B00414FCA /* Types.swift */; };
 		7914A99228997DCA00414FCA /* Defaults+Workaround.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7914A99128997DCA00414FCA /* Defaults+Workaround.swift */; };
 		791CE6C529110D5F00741063 /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = 791CE6C429110D5F00741063 /* KeyboardShortcuts */; };
 		793D0E2428B7695C00AC4B20 /* Calendar+NumberOfDaysBetween.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793D0E2328B7695C00AC4B20 /* Calendar+NumberOfDaysBetween.swift */; };
-		79408CF028B2501100B7727D /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79408CEE28B2501100B7727D /* AboutViewController.swift */; };
-		79408CF128B2501100B7727D /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79408CEF28B2501100B7727D /* AboutViewController.xib */; };
-		79408CF428B298B100B7727D /* AcknowledgementsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79408CF228B298B100B7727D /* AcknowledgementsViewController.swift */; };
-		79408CF528B298B100B7727D /* AcknowledgementsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79408CF328B298B100B7727D /* AcknowledgementsViewController.xib */; };
 		79408CF728B2A0B800B7727D /* Acknowledgements.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 79408CF628B2A0B800B7727D /* Acknowledgements.rtf */; };
+		79408CF828B2A0B800B7727D /* AboutSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79408CF928B2A0B800B7727D /* AboutSettingsView.swift */; };
+		79408CFA28B2A0B800B7727D /* AdvancedSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79408CFB28B2A0B800B7727D /* AdvancedSettingsView.swift */; };
+		79A0A0022A00000100C74E78 /* HideAfterOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A0A0012A00000100C74E78 /* HideAfterOptions.swift */; };
+		79A0A0042A00000100C74E78 /* AppSettingsResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A0A0032A00000100C74E78 /* AppSettingsResolver.swift */; };
+		79A0A0132A00000100C74E78 /* HideAfterOptionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A0A0122A00000100C74E78 /* HideAfterOptionsTests.swift */; };
+		79A0A0152A00000100C74E78 /* AppSettingsResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A0A0142A00000100C74E78 /* AppSettingsResolverTests.swift */; };
+		79A0A0212A00000100C74E78 /* Dissolv.app in Frameworks */ = {isa = PBXBuildFile; fileRef = 791284822886903D00C74E78 /* Dissolv.app */; };
 		79FFF85D28AE556B00995261 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79FFF85C28AE556B00995261 /* Notifications.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		79A0A01B2A00000100C74E78 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7912847A2886903C00C74E78 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 791284812886903D00C74E78;
+			remoteInfo = Dissolv;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		791284822886903D00C74E78 /* Dissolv.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dissolv.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -41,23 +47,19 @@
 		7912848C2886903E00C74E78 /* Dissolv.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Dissolv.entitlements; sourceTree = "<group>"; };
 		79128492288690AA00C74E78 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		791284962886A0FF00C74E78 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		791284C92886D1AA00C74E78 /* AdvancedSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AdvancedSettingsViewController.xib; sourceTree = "<group>"; };
-		791284CA2886D1AA00C74E78 /* GeneralSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneralSettingsViewController.swift; sourceTree = "<group>"; };
-		791284CB2886D1AA00C74E78 /* AdvancedSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdvancedSettingsViewController.swift; sourceTree = "<group>"; };
-		791284CC2886D1AA00C74E78 /* GeneralSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GeneralSettingsViewController.xib; sourceTree = "<group>"; };
+		791284D22886D1AA00C74E78 /* GeneralSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingsView.swift; sourceTree = "<group>"; };
 		7914A9812896B79600414FCA /* DefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsKeys.swift; sourceTree = "<group>"; };
-		7914A9872898330B00414FCA /* AddApplicationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddApplicationViewController.swift; sourceTree = "<group>"; };
-		7914A9882898330B00414FCA /* AddApplicationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddApplicationViewController.xib; sourceTree = "<group>"; };
-		7914A98B28994C8500414FCA /* AppCollectionViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCollectionViewItem.swift; sourceTree = "<group>"; };
-		7914A98C28994C8500414FCA /* AppCollectionViewItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AppCollectionViewItem.xib; sourceTree = "<group>"; };
 		7914A98F2899757B00414FCA /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
 		7914A99128997DCA00414FCA /* Defaults+Workaround.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Defaults+Workaround.swift"; sourceTree = "<group>"; };
 		793D0E2328B7695C00AC4B20 /* Calendar+NumberOfDaysBetween.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Calendar+NumberOfDaysBetween.swift"; sourceTree = "<group>"; };
-		79408CEE28B2501100B7727D /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
-		79408CEF28B2501100B7727D /* AboutViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AboutViewController.xib; sourceTree = "<group>"; };
-		79408CF228B298B100B7727D /* AcknowledgementsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcknowledgementsViewController.swift; sourceTree = "<group>"; };
-		79408CF328B298B100B7727D /* AcknowledgementsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AcknowledgementsViewController.xib; sourceTree = "<group>"; };
 		79408CF628B2A0B800B7727D /* Acknowledgements.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Acknowledgements.rtf; sourceTree = "<group>"; };
+		79408CF928B2A0B800B7727D /* AboutSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutSettingsView.swift; sourceTree = "<group>"; };
+		79408CFB28B2A0B800B7727D /* AdvancedSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedSettingsView.swift; sourceTree = "<group>"; };
+		79A0A0012A00000100C74E78 /* HideAfterOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideAfterOptions.swift; sourceTree = "<group>"; };
+		79A0A0032A00000100C74E78 /* AppSettingsResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsResolver.swift; sourceTree = "<group>"; };
+		79A0A0102A00000100C74E78 /* DissolvTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DissolvTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		79A0A0122A00000100C74E78 /* HideAfterOptionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideAfterOptionsTests.swift; sourceTree = "<group>"; };
+		79A0A0142A00000100C74E78 /* AppSettingsResolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsResolverTests.swift; sourceTree = "<group>"; };
 		79FFF85C28AE556B00995261 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -73,6 +75,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		79A0A0182A00000100C74E78 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				79A0A0212A00000100C74E78 /* Dissolv.app in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -80,6 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				791284842886903D00C74E78 /* Dissolv */,
+				79A0A0112A00000100C74E78 /* DissolvTests */,
 				791284832886903D00C74E78 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -88,6 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				791284822886903D00C74E78 /* Dissolv.app */,
+				79A0A0102A00000100C74E78 /* DissolvTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -103,23 +115,25 @@
 				7914A99128997DCA00414FCA /* Defaults+Workaround.swift */,
 				79FFF85C28AE556B00995261 /* Notifications.swift */,
 				7914A98F2899757B00414FCA /* Types.swift */,
+				79A0A0012A00000100C74E78 /* HideAfterOptions.swift */,
+				79A0A0032A00000100C74E78 /* AppSettingsResolver.swift */,
 				791284962886A0FF00C74E78 /* main.swift */,
-				791284CB2886D1AA00C74E78 /* AdvancedSettingsViewController.swift */,
-				791284C92886D1AA00C74E78 /* AdvancedSettingsViewController.xib */,
-				791284CA2886D1AA00C74E78 /* GeneralSettingsViewController.swift */,
-				791284CC2886D1AA00C74E78 /* GeneralSettingsViewController.xib */,
-				7914A9872898330B00414FCA /* AddApplicationViewController.swift */,
-				7914A9882898330B00414FCA /* AddApplicationViewController.xib */,
-				7914A98B28994C8500414FCA /* AppCollectionViewItem.swift */,
-				7914A98C28994C8500414FCA /* AppCollectionViewItem.xib */,
-				79408CEE28B2501100B7727D /* AboutViewController.swift */,
-				79408CEF28B2501100B7727D /* AboutViewController.xib */,
-				79408CF228B298B100B7727D /* AcknowledgementsViewController.swift */,
-				79408CF328B298B100B7727D /* AcknowledgementsViewController.xib */,
+				79408CFB28B2A0B800B7727D /* AdvancedSettingsView.swift */,
+				791284D22886D1AA00C74E78 /* GeneralSettingsView.swift */,
+				79408CF928B2A0B800B7727D /* AboutSettingsView.swift */,
 				79408CF628B2A0B800B7727D /* Acknowledgements.rtf */,
 				793D0E2328B7695C00AC4B20 /* Calendar+NumberOfDaysBetween.swift */,
 			);
 			path = Dissolv;
+			sourceTree = "<group>";
+		};
+		79A0A0112A00000100C74E78 /* DissolvTests */ = {
+			isa = PBXGroup;
+			children = (
+				79A0A0122A00000100C74E78 /* HideAfterOptionsTests.swift */,
+				79A0A0142A00000100C74E78 /* AppSettingsResolverTests.swift */,
+			);
+			path = DissolvTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -149,6 +163,24 @@
 			productReference = 791284822886903D00C74E78 /* Dissolv.app */;
 			productType = "com.apple.product-type.application";
 		};
+		79A0A0162A00000100C74E78 /* DissolvTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 79A0A01C2A00000100C74E78 /* Build configuration list for PBXNativeTarget "DissolvTests" */;
+			buildPhases = (
+				79A0A0172A00000100C74E78 /* Sources */,
+				79A0A0182A00000100C74E78 /* Frameworks */,
+				79A0A0192A00000100C74E78 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				79A0A01A2A00000100C74E78 /* PBXTargetDependency */,
+			);
+			name = DissolvTests;
+			productName = DissolvTests;
+			productReference = 79A0A0102A00000100C74E78 /* DissolvTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -161,6 +193,10 @@
 				TargetAttributes = {
 					791284812886903D00C74E78 = {
 						CreatedOnToolsVersion = 13.4;
+					};
+					79A0A0162A00000100C74E78 = {
+						CreatedOnToolsVersion = 13.4;
+						TestTargetID = 791284812886903D00C74E78;
 					};
 				};
 			};
@@ -184,6 +220,7 @@
 			projectRoot = "";
 			targets = (
 				791284812886903D00C74E78 /* Dissolv */,
+				79A0A0162A00000100C74E78 /* DissolvTests */,
 			);
 		};
 /* End PBXProject section */
@@ -193,14 +230,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7914A98E28994C8500414FCA /* AppCollectionViewItem.xib in Resources */,
 				79408CF728B2A0B800B7727D /* Acknowledgements.rtf in Resources */,
-				791284D02886D1AA00C74E78 /* GeneralSettingsViewController.xib in Resources */,
 				791284882886903E00C74E78 /* Assets.xcassets in Resources */,
-				79408CF528B298B100B7727D /* AcknowledgementsViewController.xib in Resources */,
-				7914A98A2898330B00414FCA /* AddApplicationViewController.xib in Resources */,
-				79408CF128B2501100B7727D /* AboutViewController.xib in Resources */,
-				791284CD2886D1AA00C74E78 /* AdvancedSettingsViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		79A0A0192A00000100C74E78 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -234,21 +272,37 @@
 			files = (
 				79FFF85D28AE556B00995261 /* Notifications.swift in Sources */,
 				7914A9822896B79600414FCA /* DefaultsKeys.swift in Sources */,
-				79408CF028B2501100B7727D /* AboutViewController.swift in Sources */,
+				79408CF828B2A0B800B7727D /* AboutSettingsView.swift in Sources */,
+				79408CFA28B2A0B800B7727D /* AdvancedSettingsView.swift in Sources */,
 				791284972886A0FF00C74E78 /* main.swift in Sources */,
-				791284CF2886D1AA00C74E78 /* AdvancedSettingsViewController.swift in Sources */,
-				79408CF428B298B100B7727D /* AcknowledgementsViewController.swift in Sources */,
+				79A0A0022A00000100C74E78 /* HideAfterOptions.swift in Sources */,
 				7914A9902899757B00414FCA /* Types.swift in Sources */,
 				7914A99228997DCA00414FCA /* Defaults+Workaround.swift in Sources */,
-				7914A98D28994C8500414FCA /* AppCollectionViewItem.swift in Sources */,
-				7914A9892898330B00414FCA /* AddApplicationViewController.swift in Sources */,
+				79A0A0042A00000100C74E78 /* AppSettingsResolver.swift in Sources */,
 				793D0E2428B7695C00AC4B20 /* Calendar+NumberOfDaysBetween.swift in Sources */,
-				791284CE2886D1AA00C74E78 /* GeneralSettingsViewController.swift in Sources */,
+				791284D12886D1AA00C74E78 /* GeneralSettingsView.swift in Sources */,
 				791284862886903D00C74E78 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		79A0A0172A00000100C74E78 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				79A0A0152A00000100C74E78 /* AppSettingsResolverTests.swift in Sources */,
+				79A0A0132A00000100C74E78 /* HideAfterOptionsTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		79A0A01A2A00000100C74E78 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 791284812886903D00C74E78 /* Dissolv */;
+			targetProxy = 79A0A01B2A00000100C74E78 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		7912848D2886903E00C74E78 /* Debug */ = {
@@ -373,9 +427,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Dissolv/Dissolv.entitlements;
 				CODE_SIGN_IDENTITY = "-";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = LAJ7DL97K7;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -389,7 +444,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.7sols.Dissolv;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -404,9 +459,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Dissolv/Dissolv.entitlements;
 				CODE_SIGN_IDENTITY = "-";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = LAJ7DL97K7;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -420,7 +476,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.7sols.Dissolv;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -428,183 +484,47 @@
 			};
 			name = Release;
 		};
-		793D0E1928B605FB00AC4B20 /* Debug Demo */ = {
+		79A0A01D2A00000100C74E78 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = YES;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG DEMO";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-			};
-			name = "Debug Demo";
-		};
-		793D0E1A28B605FB00AC4B20 /* Debug Demo */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Dissolv/Dissolv.entitlements;
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 7;
-				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = LAJ7DL97K7;
-				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Dissolv/Info.plist;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				INFOPLIST_KEY_NSPrincipalClass = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.1.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.7sols.Dissolv;
+				PRODUCT_BUNDLE_IDENTIFIER = com.7sols.DissolvTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Dissolv.app/Contents/MacOS/Dissolv";
 			};
-			name = "Debug Demo";
+			name = Debug;
 		};
-		793D0E1B28B6060500AC4B20 /* Release Demo */ = {
+		79A0A01E2A00000100C74E78 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
-				SDKROOT = macosx;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEMO;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
-			};
-			name = "Release Demo";
-		};
-		793D0E1C28B6060500AC4B20 /* Release Demo */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Dissolv/Dissolv.entitlements;
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 7;
-				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = LAJ7DL97K7;
-				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Dissolv/Info.plist;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				INFOPLIST_KEY_NSPrincipalClass = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.1.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.7sols.Dissolv;
+				PRODUCT_BUNDLE_IDENTIFIER = com.7sols.DissolvTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Dissolv.app/Contents/MacOS/Dissolv";
 			};
-			name = "Release Demo";
+			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
@@ -613,9 +533,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7912848D2886903E00C74E78 /* Debug */,
-				793D0E1928B605FB00AC4B20 /* Debug Demo */,
 				7912848E2886903E00C74E78 /* Release */,
-				793D0E1B28B6060500AC4B20 /* Release Demo */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -624,9 +542,16 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				791284902886903E00C74E78 /* Debug */,
-				793D0E1A28B605FB00AC4B20 /* Debug Demo */,
 				791284912886903E00C74E78 /* Release */,
-				793D0E1C28B6060500AC4B20 /* Release Demo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		79A0A01C2A00000100C74E78 /* Build configuration list for PBXNativeTarget "DissolvTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				79A0A01D2A00000100C74E78 /* Debug */,
+				79A0A01E2A00000100C74E78 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
