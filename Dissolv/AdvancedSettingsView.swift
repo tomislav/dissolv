@@ -17,99 +17,91 @@ struct AdvancedSettingsView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
-            HStack(alignment: .top, spacing: 16) {
-                Text("Applications:")
-                    .font(.body.weight(.semibold))
-                    .frame(width: Layout.sectionLabelWidth, alignment: .trailing)
-
-                VStack(alignment: .leading, spacing: 14) {
-                    HStack(alignment: .top, spacing: 16) {
-                        List(selection: $selectedBundleIdentifier) {
-                            ForEach(customSettings, id: \.bundleIdentifier) { setting in
-                                VStack(alignment: .leading, spacing: 2) {
-                                    Text(setting.appName)
-                                    Text("Hide, \(HideAfterOptions.label(forHideAfter: setting.hideAfter))")
-                                        .font(.caption)
-                                        .foregroundStyle(.secondary)
-                                }
-                                .tag(Optional(setting.bundleIdentifier))
-                            }
-                        }
-                        .frame(
-                            minWidth: Layout.appListWidth,
-                            idealWidth: Layout.appListWidth,
-                            maxWidth: Layout.appListWidth + 20,
-                            minHeight: Layout.editorHeight
-                        )
-                        .overlay(
-                            RoundedRectangle(cornerRadius: Layout.paneCornerRadius, style: .continuous)
-                                .stroke(Color.secondary.opacity(Layout.paneBorderOpacity), lineWidth: Layout.paneBorderWidth)
-                        )
-                        .clipShape(RoundedRectangle(cornerRadius: Layout.paneCornerRadius, style: .continuous))
-
-                        VStack(alignment: .leading, spacing: 12) {
-                            if let selectedIndex {
-                                let setting = customSettings[selectedIndex]
-
+            VStack(alignment: .leading, spacing: 14) {
+                HStack(alignment: .top, spacing: 16) {
+                    List(selection: $selectedBundleIdentifier) {
+                        ForEach(customSettings, id: \.bundleIdentifier) { setting in
+                            VStack(alignment: .leading, spacing: 2) {
                                 Text(setting.appName)
-                                    .font(.headline)
-
-                                HStack(alignment: .firstTextBaseline, spacing: 10) {
-                                    Text("Hide after:")
-                                        .frame(width: Layout.fieldLabelWidth, alignment: .trailing)
-                                    Text(HideAfterOptions.label(forHideAfter: setting.hideAfter))
-                                        .font(.body.weight(.medium))
-                                }
-
-                                Slider(
-                                    value: Binding(
-                                        get: { HideAfterOptions.sliderValue(forHideAfter: setting.hideAfter) ?? 0 },
-                                        set: { newValue in
-                                            updateSelectedHideAfter(withSliderValue: newValue)
-                                        }
-                                    ),
-                                    in: 0...100
-                                )
-                                .accessibilityLabel("Hide after for \(setting.appName)")
-
-                                Spacer(minLength: 0)
-                            } else if customSettings.isEmpty {
-                                Text("No custom applications configured.")
+                                Text("Hide, \(HideAfterOptions.label(forHideAfter: setting.hideAfter))")
+                                    .font(.caption)
                                     .foregroundStyle(.secondary)
-                                Spacer(minLength: 0)
-                            } else {
-                                Text("Select an application from the list.")
-                                    .foregroundStyle(.secondary)
-                                Spacer(minLength: 0)
                             }
+                            .tag(Optional(setting.bundleIdentifier))
                         }
-                        .padding(14)
-                        .frame(maxWidth: .infinity, minHeight: Layout.editorHeight, alignment: .topLeading)
-                        .background(
-                            RoundedRectangle(cornerRadius: Layout.paneCornerRadius, style: .continuous)
-                                .fill(Color(nsColor: .textBackgroundColor))
-                        )
-                        .overlay(
-                            RoundedRectangle(cornerRadius: Layout.paneCornerRadius, style: .continuous)
-                                .stroke(Color.secondary.opacity(Layout.paneBorderOpacity), lineWidth: Layout.paneBorderWidth)
-                        )
                     }
+                    .frame(
+                        minWidth: Layout.appListWidth,
+                        idealWidth: Layout.appListWidth,
+                        maxWidth: Layout.appListWidth + 20,
+                        minHeight: Layout.editorHeight
+                    )
+                    .overlay(
+                        RoundedRectangle(cornerRadius: Layout.paneCornerRadius, style: .continuous)
+                            .stroke(Color.secondary.opacity(Layout.paneBorderOpacity), lineWidth: Layout.paneBorderWidth)
+                    )
+                    .clipShape(RoundedRectangle(cornerRadius: Layout.paneCornerRadius, style: .continuous))
 
-                    HStack(spacing: 10) {
-                        Button("Add") {
-                            openAddApplicationsSheet()
-                        }
+                    VStack(alignment: .leading, spacing: 12) {
+                        if let selectedIndex {
+                            let setting = customSettings[selectedIndex]
 
-                        Button("Remove") {
-                            removeSelectedApplication()
+                            Text(setting.appName)
+                                .font(.headline)
+
+                            HStack(alignment: .firstTextBaseline, spacing: 10) {
+                                Text("Hide after:")
+                                    .frame(width: Layout.fieldLabelWidth, alignment: .trailing)
+                                Text(HideAfterOptions.label(forHideAfter: setting.hideAfter))
+                                    .font(.body.weight(.medium))
+                            }
+
+                            Slider(
+                                value: Binding(
+                                    get: { HideAfterOptions.sliderValue(forHideAfter: setting.hideAfter) ?? 0 },
+                                    set: { newValue in
+                                        updateSelectedHideAfter(withSliderValue: newValue)
+                                    }
+                                ),
+                                in: 0...100
+                            )
+                            .accessibilityLabel("Hide after for \(setting.appName)")
+
+                            Spacer(minLength: 0)
+                        } else if customSettings.isEmpty {
+                            Text("No custom applications configured.")
+                                .foregroundStyle(.secondary)
+                            Spacer(minLength: 0)
+                        } else {
+                            Text("Select an application from the list.")
+                                .foregroundStyle(.secondary)
+                            Spacer(minLength: 0)
                         }
-                        .disabled(selectedIndex == nil)
                     }
+                    .padding(14)
+                    .frame(maxWidth: .infinity, minHeight: Layout.editorHeight, alignment: .topLeading)
+                    .background(
+                        RoundedRectangle(cornerRadius: Layout.paneCornerRadius, style: .continuous)
+                            .fill(Color(nsColor: .textBackgroundColor))
+                    )
+                    .overlay(
+                        RoundedRectangle(cornerRadius: Layout.paneCornerRadius, style: .continuous)
+                            .stroke(Color.secondary.opacity(Layout.paneBorderOpacity), lineWidth: Layout.paneBorderWidth)
+                    )
                 }
-                .frame(maxWidth: .infinity, alignment: .topLeading)
 
-                Spacer(minLength: 0)
+                HStack(spacing: 10) {
+                    Button("Add") {
+                        openAddApplicationsSheet()
+                    }
+
+                    Button("Remove") {
+                        removeSelectedApplication()
+                    }
+                    .disabled(selectedIndex == nil)
+                }
             }
+            .frame(maxWidth: .infinity, alignment: .topLeading)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .padding(24)
@@ -312,7 +304,6 @@ private struct AddSheetState: Identifiable {
 }
 
 private enum Layout {
-    static let sectionLabelWidth: CGFloat = 170
     static let fieldLabelWidth: CGFloat = 80
     static let appListWidth: CGFloat = 220
     static let editorHeight: CGFloat = 220
